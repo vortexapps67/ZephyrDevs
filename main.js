@@ -5,6 +5,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // 1. Initialize Particles Background
   initCanvasBackground();
 
+  // Initialize Real-time Patna Studio Clock
+  initPatnaClock();
+
   // 2. Floating Top Pill-Nav Sliding Indicator
   initTopPillNav();
 
@@ -2599,8 +2602,20 @@ function openLivePreview(url, title, event) {
 }
 
 /* =========================================================================
-   15. Email Privacy Protection (Obfuscation)
+   15. Email Privacy Protection (Obfuscation) & Live Studio Clock
    ========================================================================= */
+function initPatnaClock() {
+  function updateTime() {
+    const el = document.getElementById('live-patna-time');
+    if (!el) return;
+    const now = new Date();
+    const options = { timeZone: 'Asia/Kolkata', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
+    el.textContent = now.toLocaleTimeString('en-US', options) + ' IST';
+  }
+  updateTime();
+  setInterval(updateTime, 1000);
+}
+
 function initEmailObfuscation() {
   const elements = document.querySelectorAll('.obfuscated-email');
   elements.forEach(el => {

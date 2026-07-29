@@ -5436,6 +5436,12 @@ section.section-v2 {
     font-size: clamp(1.8rem, 7vw, 2.5rem);
   }
 
+  .process-step {
+    width: 280px;
+    padding: 0 32px;
+  }
+}
+
 /* ── GPU Hardware Acceleration & Lag Elimination ──────────────────────── */
 .project-row,
 .service-card-v2,
