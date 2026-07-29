@@ -5506,4 +5506,18 @@ section.section-v2 {
   transform: translateY(-3px) !important;
 }
 
+/* ── Instantly Open Pages — Disable Splash Intro Gate Overlay ───────────── */
+.intro-gate,
+#intro-gate {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+body, body.loading-active {
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+}
+
 
