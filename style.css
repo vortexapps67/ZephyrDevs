@@ -5456,4 +5456,54 @@ section.section-v2 {
   backface-visibility: hidden;
 }
 
+/* ── Remove Scroll Reveal & Heavy Background Animations ────────────────── */
+.reveal,
+.bento-reveal,
+.reveal-scale,
+.reveal-left,
+.reveal-right,
+[data-reveal] {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+  animation: none !important;
+}
+
+#background-canvas {
+  display: none !important;
+}
+
+.mesh-orb {
+  animation: none !important;
+}
+
+/* Clean, subtle micro-animations for hover interactions only */
+.btn-gold,
+.btn-ghost,
+.project-row,
+.service-card-v2,
+.team-card-v2,
+.testi-card,
+.footer-social-v2 {
+  transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1), background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease !important;
+}
+
+.btn-gold:hover {
+  transform: translateY(-2px) !important;
+}
+
+.btn-ghost:hover {
+  transform: translateY(-2px) !important;
+}
+
+.project-row:hover {
+  transform: translateX(4px) !important;
+}
+
+.service-card-v2:hover,
+.team-card-v2:hover,
+.testi-card:hover {
+  transform: translateY(-3px) !important;
+}
+
 

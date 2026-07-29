@@ -2,17 +2,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // Apply saved theme accent color immediately
   applyThemeAccent(localStorage.getItem('zephyr_accent') || 'amber');
 
-  // 1. Initialize Particles Background
-  initCanvasBackground();
-
-  // Initialize Real-time Patna Studio Clock
+  // Real-time Patna Studio Clock
   initPatnaClock();
-
-  // 2. Floating Top Pill-Nav Sliding Indicator
-  initTopPillNav();
-
-  // 3. Scroll Reveal Observer
-  initScrollReveal();
 
   // 4. Budget Planner Slide Indicator
   initBudgetSlider();
