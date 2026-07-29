@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 Page Not Found | ZephyrDevs</title>
+  <meta name="description" content="Oops! The page you are looking for does not exist. Navigate back to ZephyrDevs homepage, services, pricing, or start a project planner.">
+  <link rel="canonical" href="https://zephyr-devs.vercel.app/404.html">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/jpeg" href="zephyrlogo.jpg">
+  
+  <!-- Structured Data JSON-LD (Professional Business Schema) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "ZephyrDevs",
+    "url": "https://zephyr-devs.vercel.app/",
+    "logo": "https://zephyr-devs.vercel.app/zephyrlogo.jpg",
+    "description": "Bespoke digital design and high-converting AI integrations.",
+    "telephone": "+91-95078-59444",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Patna",
+      "addressRegion": "Bihar",
+      "addressCountry": "IN"
+    }
+  }
+  </script>
+</head>
+<body class="loading-active">
+  <!-- Grain Overlay -->
+  <div class="grain"></div>
+
+  <!-- Aurora Backdrop Gradients -->
+  <div class="aurora">
+    <i class="a1"></i>
+    <i class="a2"></i>
+    <i class="a3"></i>
+    <div class="beam"></div>
+  </div>
+
+  <!-- Floating Glassmorphic Top Nav Pill Bar -->
+  <div class="nav-pill-wrapper active">
+    <nav class="nav-pill">
+      <a href="index.html" class="nav-brand">
+        <img src="zephyrlogo.jpg" alt="ZephyrDevs Logo" class="nav-brand-img">
+        <div>Zephyr<span>Devs</span></div>
+      </a>
+      <div class="nav-links-container">
+        <div class="nav-sliding-indicator"></div>
+        <a href="index.html" class="nav-link-item">Home</a>
+        <a href="services.html" class="nav-link-item">Services</a>
+        <a href="pricing.html" class="nav-link-item">Pricing</a>
+        <a href="contact.html" class="nav-link-item">Start Project</a>
+      </div>
+      <button class="btn btn-primary nav-cta-btn" onclick="navigateTo('contact.html')">
+        Let's Talk
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+      </button>
+      <button class="nav-burger" aria-label="Toggle mobile menu">
+        <span></span>
+        <span></span>
+      </button>
+    </nav>
+  </div>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-drawer">
+    <div class="drawer-links">
+      <a href="index.html" class="drawer-link-item">Home</a>
+      <a href="services.html" class="drawer-link-item">Services</a>
+      <a href="pricing.html" class="drawer-link-item">Pricing</a>
+      <a href="contact.html" class="drawer-link-item">Start Project</a>
+      <button class="btn btn-primary" onclick="navigateTo('contact.html')" style="margin-top: 20px; width: 100%;">Let's Talk</button>
+    </div>
+  </div>
+
+  <!-- Main Content wrapper -->
+  <main class="container" style="padding-top: 180px; min-height: 80vh; display: flex; align-items: center; justify-content: center;">
+    <div class="glass-panel" style="text-align: center; max-width: 600px; padding: 60px 40px; border-radius: 24px; border: 1px solid var(--border-color); width: 100%;">
+      <div style="font-family: var(--font-mono); font-size: 5rem; font-weight: 800; color: var(--neon-cyan); text-shadow: 0 0 30px var(--neon-cyan-glow); line-height: 1; margin-bottom: 24px;">404</div>
+      <h1 style="font-family: var(--font-title); font-size: 2.2rem; font-weight: 700; color: #ffffff; margin-bottom: 16px; letter-spacing: -0.02em;">Lost in the Zephyr?</h1>
+      <p style="color: var(--text-secondary); font-size: 1.05rem; line-height: 1.6; margin-bottom: 36px;">
+        The page you are looking for has either drifted away or never existed. Let's get you back on track.
+      </p>
+      <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+        <button class="btn btn-primary" onclick="navigateTo('index.html')">
+          Return Home
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+        </button>
+        <button class="btn btn-secondary" onclick="navigateTo('contact.html')">
+          Start Project Brief
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer Section -->
+  <footer>
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo-link">
+          <img src="zephyrlogo.jpg" alt="ZephyrDevs Logo" class="nav-brand-img">
+          <div class="logo-text" style="font-family: var(--font-title); font-size: 1.25rem; font-weight: 800;">Zephyr<span style="color: var(--neon-cyan);">Devs</span></div>
+        </a>
+        <p>Blowing fresh design and AI-driven intelligence into modern digital spaces. Clean code, responsive screens, lightning speed.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="pricing.html">Pricing Plans</a></li>
+          <li><a href="contact.html">Start a Project</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Contact Us</h4>
+        <ul>
+          <li>Email: <a href="#" class="obfuscated-email" data-user="zephyrdevsofficial" data-domain="gmail.com" style="color: var(--neon-cyan);"></a></li>
+          <li>Phone: <a href="tel:+919507859444" style="color: var(--neon-cyan);">+91 95078 59444</a></li>
+          <li>Location: Patna, Bihar, India</li>
+        </ul>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <div>&copy; 2026 ZephyrDevs. All rights reserved. Made with &hearts; by Akshansh, Aarav & Arshh.</div>
+      <div class="footer-social-icons">
+        <a href="https://instagram.com/zephyrdevs" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+        </a>
+        <a href="https://linkedin.com/company/zephyrdevs" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+        </a>
+        <a href="https://twitter.com/zephyrdevs" target="_blank" rel="noopener" aria-label="Twitter">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
+        </a>
+        <a href="https://facebook.com/zephyrdevs" target="_blank" rel="noopener" aria-label="Facebook">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

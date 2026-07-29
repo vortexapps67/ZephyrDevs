@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Firebase API Proxy</title>
+</head>
+<body>
+  <!-- Load Firebase SDKs (v8) -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+  <script>
+    // Firebase Config (Default Fallback Registry)
+    const defaultFirebaseConfig = {
+      apiKey: "AIzaSyDyDhjC0K4LYkLWOImm3bm49gC-pzcz8JQ",
+      authDomain: "zephyrdevs-905b9.firebaseapp.com",
+      databaseURL: "https://zephyrdevs-905b9-default-rtdb.firebaseio.com",
+      projectId: "zephyrdevs-905b9",
+      storageBucket: "zephyrdevs-905b9.firebasestorage.app",
+      messagingSenderId: "903741618158",
+      appId: "1:903741618158:web:687784ed09fd6c598100ff",
+      measurementId: "G-0HTWCWYYB0"
+    };
+
+    let db;
+    let defaultDb;
+    let activeConfig = defaultFirebaseConfig;
+
+    async function startFirebase() {
+      try {
+        // 1. Connect to default database first to act as registry
+        firebase.initializeApp(defaultFirebaseConfig);
+        defaultDb = firebase.database();
+        
+        // 2. Fetch custom config synced to this registry
+        const snap = await defaultDb.ref('/customConfig').once('value');
+        const customConfig = snap.val();
+
+        if (customConfig && customConfig.apiKey && customConfig.databaseURL) {
+          // Re-initialize Firebase with custom settings
+          await firebase.app().delete();
+          firebase.initializeApp(customConfig);
+          db = firebase.database();
+          activeConfig = customConfig;
+          console.log("Firebase initialized with dynamic custom config.");
+        } else {
+          db = defaultDb;
+          activeConfig = defaultFirebaseConfig;
+          console.log("Firebase initialized with default registry config.");
+        }
+      } catch (err) {
+        console.error("Failed to load custom config, falling back to default:", err);
+        try {
+          if (firebase.apps.length === 0) {
+            firebase.initializeApp(defaultFirebaseConfig);
+          }
+          db = firebase.database();
+          defaultDb = db;
+        } catch (e) {
+          console.error("Critical Firebase failure:", e);
+        }
+      }
+
+      setupListeners();
+      
+      // Notify parent page that Firebase is ready and send active config
+      window.parent.postMessage({ type: 'firebaseReady', config: activeConfig }, '*');
+    }
+
+    async function addAuditLog(text) {
+      try {
+        const snap = await db.ref('/activityLogs').once('value');
+        let logs = snap.val() || [];
+        if (!Array.isArray(logs)) {
+          logs = logs ? Object.values(logs) : [];
+        }
+        
+        const newLog = {
+          timestamp: new Date().toLocaleTimeString('en-US', { hour12: false }),
+          text: text
+        };
+        logs.unshift(newLog);
+        logs = logs.slice(0, 5);
+        await db.ref('/activityLogs').set(logs);
+      } catch (err) {
+        console.error('Failed to write audit log:', err);
+      }
+    }
+
+    function setupListeners() {
+      // Listen to changes and notify parent window in real time
+      db.ref('/maintenance').on('value', (snap) => {
+        window.parent.postMessage({ type: 'dbUpdate', key: 'maintenance', val: snap.val() }, '*');
+      });
+      db.ref('/announcement').on('value', (snap) => {
+        window.parent.postMessage({ type: 'dbUpdate', key: 'announcement', val: snap.val() }, '*');
+      });
+      db.ref('/team').on('value', (snap) => {
+        window.parent.postMessage({ type: 'dbUpdate', key: 'team', val: snap.val() }, '*');
+      });
+      db.ref('/password').on('value', (snap) => {
+        window.parent.postMessage({ type: 'dbUpdate', key: 'password', val: snap.val() }, '*');
+      });
+      db.ref('/themeAccent').on('value', (snap) => {
+        window.parent.postMessage({ type: 'dbUpdate', key: 'themeAccent', val: snap.val() }, '*');
+      });
+      db.ref('/activityLogs').on('value', (snap) => {
+        window.parent.postMessage({ type: 'dbUpdate', key: 'activityLogs', val: snap.val() }, '*');
+      });
+      db.ref('/loadingText').on('value', (snap) => {
+        window.parent.postMessage({ type: 'dbUpdate', key: 'loadingText', val: snap.val() }, '*');
+      });
+      
+      // Listen to custom config updates on the registry
+      let isInitialConfigLoad = true;
+      defaultDb.ref('/customConfig').on('value', (snap) => {
+        if (isInitialConfigLoad) {
+          isInitialConfigLoad = false;
+          return;
+        }
+        window.parent.postMessage({ type: 'dbUpdate', key: 'customConfig', val: snap.val() }, '*');
+      });
+    }
+
+    // Listen to requests from parent window
+    window.addEventListener('message', async (e) => {
+      const { id, action, data } = e.data || {};
+      if (!id || !action) return;
+
+      try {
+        let result = null;
+        if (action === 'getDb') {
+          const snap = await db.ref('/').once('value');
+          result = snap.val();
+        } else if (action === 'updateMaintenance') {
+          await db.ref('/maintenance').set(data);
+          await addAuditLog(`Maintenance Mode toggled to: ${data}`);
+          result = { success: true };
+        } else if (action === 'updateAnnouncement') {
+          await db.ref('/announcement').set(data);
+          await addAuditLog(`Announcement Banner updated: "${data.text.substring(0, 20)}..."`);
+          result = { success: true };
+        } else if (action === 'updatePassword') {
+          await db.ref('/password').set(data);
+          await addAuditLog('Security password updated');
+          result = { success: true };
+        } else if (action === 'updateLoadingText') {
+          await db.ref('/loadingText').set(data);
+          const safeStr = data ? data.substring(0, 20) : '';
+          await addAuditLog(`Loading text updated to: "${safeStr}..."`);
+          result = { success: true };
+        } else if (action === 'updateThemeAccent') {
+          await db.ref('/themeAccent').set(data);
+          await addAuditLog(`Theme accent changed to: ${data}`);
+          result = { success: true };
+        } else if (action === 'updateCustomConfig') {
+          // Sync custom credentials via the default database registry
+          await defaultDb.ref('/customConfig').set(data);
+          await addAuditLog('Custom Firebase config synced');
+          result = { success: true };
+        } else if (action === 'resetCustomConfig') {
+          // Reset credentials to default database registry config
+          await defaultDb.ref('/customConfig').remove();
+          await addAuditLog('Firebase config reset to default');
+          result = { success: true };
+        } else if (action === 'setTeamMember') {
+          const { key, member } = data;
+          await db.ref('/team/' + key).set(member);
+          await addAuditLog(`Team member saved: ${member.name}`);
+          result = { success: true };
+        } else if (action === 'deleteTeamMember') {
+          const snap = await db.ref('/team/' + data).once('value');
+          const m = snap.val();
+          await db.ref('/team/' + data).remove();
+          await addAuditLog(`Team member deleted: ${m ? m.name : data}`);
+          result = { success: true };
+        } else if (action === 'initializeDefaultData') {
+          const snap = await db.ref('/').once('value');
+          const val = snap.val();
+          if (!val || !val.team) {
+            await db.ref('/').set(data);
+            result = { initialized: true };
+          } else {
+            result = { initialized: false };
+          }
+        }
+        
+        window.parent.postMessage({ id, result }, '*');
+      } catch (err) {
+        console.error('Firebase DB Proxy Error:', err);
+        window.parent.postMessage({ id, error: err.message }, '*');
+      }
+    });
+
+    startFirebase();
+  </script>
+</body>
+</html>

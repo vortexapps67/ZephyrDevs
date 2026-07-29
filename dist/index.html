@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZephyrDevs | Premium Web Development & AI Integrations</title>
+  <meta name="description" content="ZephyrDevs is a premium design and development agency building fast, responsive, and intelligence-driven web applications using HTML5, Node.js, Firebase, Google Gemini, and Anthropic Claude.">
+  <meta name="keywords" content="web development, AI integration, Google Gemini, Anthropic Claude, custom design agency, Firebase development, Node.js developer, responsive web design">
+  <link rel="canonical" href="https://zephyr-devs.vercel.app/">
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://zephyr-devs.vercel.app/">
+  <meta property="og:title" content="ZephyrDevs | Premium Web Development & AI Integrations">
+  <meta property="og:description" content="Premium design and development agency building fast, responsive, and intelligence-driven web applications using HTML5, Node.js, Firebase, Google Gemini, and Anthropic Claude.">
+  <meta property="og:image" content="https://zephyr-devs.vercel.app/zephyrlogo.jpg">
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://zephyr-devs.vercel.app/">
+  <meta property="twitter:title" content="ZephyrDevs | Premium Web Development & AI Integrations">
+  <meta property="twitter:description" content="Premium design and development agency building fast, responsive, and intelligence-driven web applications using HTML5, Node.js, Firebase, Google Gemini, and Anthropic Claude.">
+  <meta property="twitter:image" content="https://zephyr-devs.vercel.app/zephyrlogo.jpg">
+  <link rel="icon" type="image/jpeg" href="/assets/zephyrlogo-CVtEupYg.jpg">
+  <!-- Structured Data JSON-LD (Professional Business Schema) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "ZephyrDevs",
+    "url": "https://zephyr-devs.vercel.app/",
+    "logo": "https://zephyr-devs.vercel.app/zephyrlogo.jpg",
+    "image": "https://zephyr-devs.vercel.app/rajdarbar.webp",
+    "description": "Bespoke digital design and high-converting AI integrations. Fast, clean, responsive websites using Gemini and Claude APIs.",
+    "telephone": "+91-95078-59444",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Patna",
+      "addressRegion": "Bihar",
+      "addressCountry": "IN"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": "25.5941",
+      "longitude": "85.1376"
+    },
+    "openingHoursSpecification": {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday"
+      ],
+      "opens": "09:00",
+      "closes": "18:00"
+    },
+    "sameAs": [
+      "https://instagram.com/zephyrdevs",
+      "https://twitter.com/zephyrdevs",
+      "https://linkedin.com/company/zephyrdevs"
+    ]
+  }
+  </script>
+  <script type="module" crossorigin src="/assets/index-CR8KTb41.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-DvOFK6sE.css">
+</head>
+<body class="loading-active">
+  <!-- Grain Overlay -->
+  <div class="grain"></div>
+
+  <!-- Aurora Backdrop Gradients -->
+  <div class="aurora">
+    <i class="a1"></i>
+    <i class="a2"></i>
+    <i class="a3"></i>
+    <div class="beam"></div>
+  </div>
+
+  <!-- Custom Interactive Cursor -->
+  <div class="cursor-dot"></div>
+  <div class="cursor-ring"></div>
+
+  <!-- Cinematic Intro Gate -->
+  <div id="intro-gate" class="intro-gate">
+    <div class="intro-panel"></div>
+    <div class="intro-content">
+      <img src="/assets/zephyrlogo-CVtEupYg.jpg" alt="ZephyrDevs Logo" class="intro-logo">
+      <div class="intro-tagline" id="intro-tagline"></div>
+      <div class="intro-subtitle">zephyrdevs — 2026</div>
+    </div>
+    <div class="intro-meta">
+      <div class="intro-meta-info">
+        <span class="intro-loading-text">We Levlled Up.</span>
+        <span class="intro-counter"><span id="intro-counter-val">000</span><span class="intro-counter-percent">%</span></span>
+      </div>
+      <div class="intro-progress-track">
+        <div class="intro-progress-fill" id="intro-progress"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Glowing Cursor Flashlight Spotlight -->
+  <div id="flashlight-glow"></div>
+
+  <!-- Interactive Particles Canvas -->
+  <canvas id="background-canvas"></canvas>
+
+  <!-- Floating Glassmorphic Top Nav Pill Bar -->
+  <div class="nav-pill-wrapper reveal">
+    <nav class="nav-pill">
+      <a href="index.html" class="nav-brand">
+        <img src="/assets/zephyrlogo-CVtEupYg.jpg" alt="ZephyrDevs Logo" class="nav-brand-img">
+        <div>Zephyr<span>Devs</span></div>
+      </a>
+      
+      <!-- Desktop Navigation links -->
+      <div class="nav-links-container">
+        <div class="nav-indicator"></div>
+        <div class="nav-link-item" onclick="navigateTo('index.html')">Home</div>
+        <div class="nav-link-item" onclick="navigateTo('services.html')">Services</div>
+        <div class="nav-link-item" onclick="navigateTo('pricing.html')">Pricing</div>
+        <div class="nav-link-item" onclick="navigateTo('contact.html')">Start Project</div>
+      </div>
+
+      <!-- Let's Talk CTA button -->
+      <button class="nav-cta-btn" onclick="navigateTo('contact.html')">Let's Talk</button>
+      
+      <!-- Mobile menu hamburger button -->
+      <button class="nav-burger" id="nav-burger-btn" aria-label="Toggle Navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </nav>
+  </div>
+
+  <!-- Mobile Drawer Menu Overlay -->
+  <div class="mobile-drawer" id="mobile-drawer-menu">
+    <div class="mobile-nav-link" onclick="navigateTo('index.html')">Home</div>
+    <div class="mobile-nav-link" onclick="navigateTo('services.html')">Services</div>
+    <div class="mobile-nav-link" onclick="navigateTo('pricing.html')">Pricing</div>
+    <div class="mobile-nav-link" onclick="navigateTo('contact.html')">Start Project</div>
+  </div>
+
+  <!-- Main Hero Area -->
+  <main class="container">
+    <div id="hero-root"></div>
+
+    <!-- Recent Showcase Section (Bento Grid Redesign) -->
+    <section id="showcase">
+      <div class="section-header bento-reveal">
+        <span class="section-subtitle">Portfolio</span>
+        <h2 class="section-title">Recent Work</h2>
+        <p>A handpicked selection of custom web applications and experimental projects we've built.</p>
+      </div>
+
+      <div class="bento-grid" style="margin-top: 40px;">
+        
+        <!-- Project 1: Rajdarbar (Large Feature 2x2 or 3x2) -->
+        <div class="bento-panel bento-col-span-4 bento-row-span-2 bento-reveal" onclick="openLivePreview('https://rajdarbars.netlify.app', 'Rajdarbar Banquet Hall', event)" style="cursor: pointer;">
+          <div class="bento-panel-img-wrap">
+            <img src="/assets/rajdarbar-DqKeDLIL.webp" alt="Rajdarbar Banquet Hall Preview" class="bento-panel-img">
+            <div class="bento-panel-overlay"></div>
+          </div>
+          <div class="bento-panel-content">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: auto;">
+              <div class="project-num mono" style="font-size: 2.5rem; opacity: 0.5;">01</div>
+              <span style="display: inline-flex; align-items: center; gap: 6px; background: rgba(0,0,0,0.5); padding: 4px 12px; border-radius: 20px;">
+                <span class="live-dot"></span>
+                <span class="mono" style="color: var(--neon-green); font-size: 0.65rem;">live</span>
+              </span>
+            </div>
+            <div style="margin-top: 40px;">
+              <h3 class="project-name text-gradient" style="font-size: 2rem; margin-bottom: 8px;">Rajdarbar Banquet Hall</h3>
+              <p class="project-desc">High-end showcase portal with interactive maps and automated inquiry routing.</p>
+              <div class="project-tags" style="margin-top: 16px;">
+                <span class="project-tag">Reservations</span>
+                <span class="project-tag">Showcase</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 2: Haveli Restaurant (1x2 tall card) -->
+        <div class="bento-panel bento-col-span-2 bento-row-span-2 bento-reveal" onclick="openLivePreview('https://havelirestaurants.netlify.app', 'Haveli Restaurant', event)" style="cursor: pointer;">
+          <div class="bento-panel-img-wrap">
+            <img src="/assets/haveli-C6QlYiYx.webp" alt="Haveli Restaurant Preview" class="bento-panel-img">
+            <div class="bento-panel-overlay"></div>
+          </div>
+          <div class="bento-panel-content">
+            <div class="project-num mono" style="font-size: 1.5rem; opacity: 0.5; margin-bottom: 20px;">02</div>
+            <h3 class="project-name" style="font-size: 1.3rem; margin-bottom: 8px;">Haveli Restaurant</h3>
+            <p class="project-desc" style="font-size: 0.85rem;">Lightweight digital menu and table booking system.</p>
+            <div style="margin-top: auto; padding-top: 20px;">
+              <div style="font-size: 1.5rem; font-weight: 700; color: var(--neon-cyan);">&lt; 0.6s</div>
+              <div style="font-size: 0.65rem; color: var(--text-secondary); text-transform: uppercase;">Load Time</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 3: RKM Square -->
+        <div class="bento-panel bento-col-span-3 bento-reveal" onclick="openLivePreview('https://rkmsquare.vercel.app', 'RKM Square', event)" style="cursor: pointer;">
+          <div class="bento-panel-img-wrap">
+            <img src="/assets/rkm-CNoAPH0l.webp" alt="RKM Square Preview" class="bento-panel-img">
+            <div class="bento-panel-overlay"></div>
+          </div>
+          <div class="bento-panel-content">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px;">
+              <h3 class="project-name">RKM Square</h3>
+              <span class="mono" style="color: var(--neon-green); font-size: 0.65rem;">live</span>
+            </div>
+            <p class="project-desc" style="font-size: 0.85rem;">Premium corporate web portal for commercial space leasing.</p>
+            <div class="project-tags" style="margin-top: auto; padding-top: 16px;">
+              <span class="project-tag">Leasing Tech</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 4: Panna Events -->
+        <div class="bento-panel bento-col-span-3 bento-reveal" onclick="openLivePreview('https://pannaevents.vercel.app', 'Panna Events', event)" style="cursor: pointer;">
+          <div class="bento-panel-img-wrap">
+            <img src="/assets/panna-Dl9XM6Q9.webp" alt="Panna Events Preview" class="bento-panel-img">
+            <div class="bento-panel-overlay"></div>
+          </div>
+          <div class="bento-panel-content">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px;">
+              <h3 class="project-name">Panna Events</h3>
+              <span class="mono" style="color: var(--neon-green); font-size: 0.65rem;">live</span>
+            </div>
+            <p class="project-desc" style="font-size: 0.85rem;">High-converting portfolio for event catering optimized for local SEO.</p>
+            <div class="project-tags" style="margin-top: auto; padding-top: 16px;">
+              <span class="project-tag">SEO Optimized</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Co-founders / Team Section -->
+    <section id="founders">
+      <div class="section-header reveal">
+        <span class="section-subtitle">Leadership</span>
+        <h2 class="section-title">Meet the Founders</h2>
+        <p>A team of design-obsessed engineers pushing the boundaries of custom web experiences.</p>
+      </div>
+
+      <div class="founders-grid">
+        <!-- Akshansh Sinha -->
+        <div class="founder-card glass-panel reveal reveal-left">
+          <div class="founder-avatar-wrapper">
+            <div class="founder-avatar" style="background: linear-gradient(135deg, rgba(0, 230, 118, 0.2) 0%, rgba(0, 176, 255, 0.2) 100%);">
+              AS
+            </div>
+          </div>
+          <span class="founder-role">Co-Founder & Tech Architect</span>
+          <h3 class="founder-name">Akshansh Sinha</h3>
+          <p class="founder-bio">
+            Specializes in backend architecture, Google Gemini model tuning, and cloud-native solutions with Node.js and Firebase.
+          </p>
+          <div class="founder-socials">
+            <a href="https://instagram.com/akshansh_6969" target="_blank" rel="noopener" class="social-link">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+              @akshansh_6969
+            </a>
+          </div>
+        </div>
+
+        <!-- Aarav Sharma -->
+        <div class="founder-card glass-panel reveal reveal-scale">
+          <div class="founder-avatar-wrapper">
+            <div class="founder-avatar" style="background: linear-gradient(135deg, rgba(0, 176, 255, 0.2) 0%, rgba(200, 0, 255, 0.2) 100%);">
+              AS
+            </div>
+          </div>
+          <span class="founder-role">Co-Founder & Creative Lead</span>
+          <h3 class="founder-name">Aarav Sharma</h3>
+          <p class="founder-bio">
+            Designs premium glassmorphic UI interfaces, creates fluid custom animations, and manages Claude AI API pipelines.
+          </p>
+          <div class="founder-socials">
+            <a href="https://instagram.com/aarav_sharma_sui" target="_blank" rel="noopener" class="social-link">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+              @aarav_sharma_sui
+            </a>
+          </div>
+        </div>
+
+        <!-- Arshh -->
+        <div class="founder-card glass-panel reveal reveal-right">
+          <div class="founder-avatar-wrapper">
+            <div class="founder-avatar" style="background: linear-gradient(135deg, rgba(200, 0, 255, 0.2) 0%, rgba(0, 230, 118, 0.2) 100%);">
+              AR
+            </div>
+          </div>
+          <span class="founder-role">Co-Founder & Lead AI Engineer</span>
+          <h3 class="founder-name">Arshh</h3>
+          <p class="founder-bio">
+            Focuses on advanced Claude AI workflows, neural-network integrations, and high-performance server logic.
+          </p>
+          <div class="founder-socials">
+            <a href="https://instagram.com/arshhispro_" target="_blank" rel="noopener" class="social-link">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+              @arshhispro_
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Lifecycle Timeline Section -->
+    <section id="lifecycle">
+      <div class="section-header reveal">
+        <span class="section-subtitle">02 / how we work</span>
+        <h2 class="section-title">from zero to shipped. no detours.</h2>
+        <p>We start by listening to your goals, designing system architecture before coding, and shipping daily commits with weekly demos.</p>
+      </div>
+
+      <div class="lifecycle-grid">
+        <!-- Step 1 -->
+        <div class="lifecycle-card glass-panel reveal reveal-left">
+          <div class="lifecycle-num">01 / DISCOVER</div>
+          <h4>Briefing & Wireframes</h4>
+          <p>Mapping out pages flow, visual guidelines, database nodes, and custom style specifications.</p>
+        </div>
+        <!-- Step 2 -->
+        <div class="lifecycle-card glass-panel reveal reveal-scale">
+          <div class="lifecycle-num">02 / DESIGN</div>
+          <h4>Interactive Mockups</h4>
+          <p>Creating glassmorphic CSS layouts, custom typography scales, and responsive templates.</p>
+        </div>
+        <!-- Step 3 -->
+        <div class="lifecycle-card glass-panel reveal reveal-scale">
+          <div class="lifecycle-num">03 / BUILD</div>
+          <h4>Frontend & Backend</h4>
+          <p>Writing fast, pure HTML5/JS files, coding Node backend server routes, and configuring Firebase databases.</p>
+        </div>
+        <!-- Step 4 -->
+        <div class="lifecycle-card glass-panel reveal reveal-scale">
+          <div class="lifecycle-num">04 / INTELLIGENCE</div>
+          <h4>AI Orchestration</h4>
+          <p>Integrating Gemini and Claude models, designing system prompts, and optimizing API token budgets.</p>
+        </div>
+        <!-- Step 5 -->
+        <div class="lifecycle-card glass-panel reveal reveal-right">
+          <div class="lifecycle-num">05 / LAUNCH</div>
+          <h4>Audit & Deploy</h4>
+          <p>Auditing animation timings, optimizing SEO configurations, and launching pages to global servers.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Live Tech Stack Stats -->
+    <section id="stats" style="background: rgba(8, 9, 12, 0.4); border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); padding: 60px 0;">
+      <div class="container stats-bar reveal reveal-scale">
+        <div class="stat-item">
+          <div class="stat-number">99.9%</div>
+          <div class="stat-label">Hosting Uptime</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">&lt; 0.8s</div>
+          <div class="stat-label">First Paint Speed</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">24+</div>
+          <div class="stat-label">Production Apps</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">50k+</div>
+          <div class="stat-label">AI Token Queries</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tech Stack Section -->
+    <section id="tech-stack">
+      <div class="section-header reveal">
+        <span class="section-subtitle">Our Tools</span>
+        <h2 class="section-title">The Engine Room</h2>
+        <p>We build lightweight interfaces integrated with the most powerful tools available today.</p>
+      </div>
+
+      <div class="tech-grid reveal">
+        <!-- HTML -->
+        <div class="tech-node glass-panel">
+          <div class="tech-icon">
+            <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"><title>HTML5</title><path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.564-2.438L1.5 0zm7.031 9.75l-.232-2.718 10.059.003.23-2.622L5.412 4.41l.698 8.01h9.126l-.326 3.426-2.91.804-2.955-.81-.188-2.11H6.248l.33 4.171L12 19.351l5.379-1.443.744-8.157H8.531z"/></svg>
+          </div>
+          <div class="tech-name">HTML5</div>
+        </div>
+        <!-- CSS -->
+        <div class="tech-node glass-panel">
+          <div class="tech-icon">
+            <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"><title>CSS3</title><path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.565-2.438L1.5 0zm17.09 4.413L5.41 4.41l.213 2.622 10.125.002-.255 2.716h-6.64l.24 2.573h6.182l-.366 3.523-2.91.804-2.956-.81-.188-2.11h-2.61l.29 3.855L12 19.288l5.373-1.53L18.59 4.414z"/></svg>
+          </div>
+          <div class="tech-name">Custom CSS</div>
+        </div>
+        <!-- JS -->
+        <div class="tech-node glass-panel">
+          <div class="tech-icon">
+            <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"><title>JavaScript</title><path d="M0 0h24v24H0V0zm22.034 18.276c-.175-1.095-.888-2.015-3.003-2.873-.736-.345-1.554-.585-1.797-1.14-.091-.33-.105-.51-.046-.705.15-.646.915-.84 1.515-.66.39.12.75.42.976.9 1.034-.676 1.034-.676 1.755-1.125-.27-.42-.404-.601-.586-.78-.63-.705-1.469-1.065-2.834-1.034l-.705.089c-.676.165-1.32.525-1.71 1.005-1.14 1.291-.811 3.541.569 4.471 1.365 1.02 3.361 1.244 3.616 2.205.24 1.17-.87 1.545-1.966 1.41-.811-.18-1.26-.586-1.755-1.336l-1.83 1.051c.21.48.45.689.81 1.109 1.74 1.756 6.09 1.666 6.871-1.004.029-.09.24-.705.074-1.65l.046.067zm-8.983-7.245h-2.248c0 1.938-.009 3.864-.009 5.805 0 1.232.063 2.363-.138 2.711-.33.689-1.18.601-1.566.48-.396-.196-.597-.466-.83-.855-.063-.105-.11-.196-.127-.196l-1.825 1.125c.305.63.75 1.172 1.324 1.517.855.51 2.004.675 3.207.405.783-.226 1.458-.691 1.811-1.411.51-.93.402-2.07.397-3.346.012-2.054 0-4.109 0-6.179l.004-.056z"/></svg>
+          </div>
+          <div class="tech-name">Vanilla JS</div>
+        </div>
+        <!-- Node -->
+        <div class="tech-node glass-panel">
+          <div class="tech-icon">
+            <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"><title>Node.js</title><path d="M11.998,24c-0.321,0-0.641-0.084-0.922-0.247l-2.936-1.737c-0.438-0.245-0.224-0.332-0.08-0.383 c0.585-0.203,0.703-0.25,1.328-0.604c0.065-0.037,0.151-0.023,0.218,0.017l2.256,1.339c0.082,0.045,0.197,0.045,0.272,0l8.795-5.076 c0.082-0.047,0.134-0.141,0.134-0.238V6.921c0-0.099-0.053-0.192-0.137-0.242l-8.791-5.072c-0.081-0.047-0.189-0.047-0.271,0 L3.075,6.68C2.99,6.729,2.936,6.825,2.936,6.921v10.15c0,0.097,0.054,0.189,0.139,0.235l2.409,1.392 c1.307,0.654,2.108-0.116,2.108-0.89V7.787c0-0.142,0.114-0.253,0.256-0.253h1.115c0.139,0,0.255,0.112,0.255,0.253v10.021 c0,1.745-0.95,2.745-2.604,2.745c-0.508,0-0.909,0-2.026-0.551L2.28,18.675c-0.57-0.329-0.922-0.945-0.922-1.604V6.921 c0-0.659,0.353-1.275,0.922-1.603l8.795-5.082c0.557-0.315,1.296-0.315,1.848,0l8.794,5.082c0.57,0.329,0.924,0.944,0.924,1.603 v10.15c0,0.659-0.354,1.273-0.924,1.604l-8.794,5.078C12.643,23.916,12.324,24,11.998,24z M19.099,13.993 c0-1.9-1.284-2.406-3.987-2.763c-2.731-0.361-3.009-0.548-3.009-1.187c0-0.528,0.235-1.233,2.258-1.233 c1.807,0,2.473,0.389,2.747,1.607c0.024,0.115,0.129,0.199,0.247,0.199h1.141c0.071,0,0.138-0.031,0.186-0.081 c0.048-0.054,0.074-0.123,0.067-0.196c-0.177-2.098-1.571-3.076-4.388-3.076c-2.508,0-4.004,1.058-4.004,2.833 c0,1.925,1.488,2.457,3.895,2.695c2.88,0.282,3.103,0.703,3.103,1.269c0,0.983-0.789,1.402-2.642,1.402 c-2.327,0-2.839-0.584-3.011-1.742c-0.02-0.124-0.126-0.215-0.253-0.215h-1.137c-0.141,0-0.254,0.112-0.254,0.253 c0,1.482,0.806,3.248,4.655,3.248C17.501,17.007,19.099,15.91,19.099,13.993z"/></svg>
+          </div>
+          <div class="tech-name">Node.js</div>
+        </div>
+        <!-- Firebase -->
+        <div class="tech-node glass-panel">
+          <div class="tech-icon">
+            <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"><title>Firebase</title><path d="M19.455 8.369c-.538-.748-1.778-2.285-3.681-4.569-.826-.991-1.535-1.832-1.884-2.245a146 146 0 0 0-.488-.576l-.207-.245-.113-.133-.022-.032-.01-.005L12.57 0l-.609.488c-1.555 1.246-2.828 2.851-3.681 4.64-.523 1.064-.864 2.105-1.043 3.176-.047.241-.088.489-.121.738-.209-.017-.421-.028-.632-.033-.018-.001-.035-.002-.059-.003a7.46 7.46 0 0 0-2.28.274l-.317.089-.163.286c-.765 1.342-1.198 2.869-1.252 4.416-.07 2.01.477 3.954 1.583 5.625 1.082 1.633 2.61 2.882 4.42 3.611l.236.095.071.025.003-.001a9.59 9.59 0 0 0 2.941.568q.171.006.342.006c1.273 0 2.513-.249 3.69-.742l.008.004.313-.145a9.63 9.63 0 0 0 3.927-3.335c1.01-1.49 1.577-3.234 1.641-5.042.075-2.161-.643-4.304-2.133-6.371m-7.083 6.695c.328 1.244.264 2.44-.191 3.558-1.135-1.12-1.967-2.352-2.475-3.665-.543-1.404-.87-2.74-.974-3.975.48.157.922.366 1.315.622 1.132.737 1.914 1.902 2.325 3.461zm.207 6.022c.482.368.99.712 1.513 1.028-.771.21-1.565.302-2.369.273a8 8 0 0 1-.373-.022c.458-.394.869-.823 1.228-1.279zm1.347-6.431c-.516-1.957-1.527-3.437-3.002-4.398-.647-.421-1.385-.741-2.194-.95.011-.134.026-.268.043-.4.014-.113.03-.216.046-.313.133-.689.332-1.37.589-2.025.099-.25.206-.499.321-.74l.004-.008c.177-.358.376-.719.61-1.105l.092-.152-.003-.001c.544-.851 1.197-1.627 1.942-2.311l.288.341c.672.796 1.304 1.548 1.878 2.237 1.291 1.549 2.966 3.583 3.612 4.48 1.277 1.771 1.893 3.579 1.83 5.375-.049 1.395-.461 2.755-1.195 3.933-.694 1.116-1.661 2.05-2.8 2.708-.636-.318-1.559-.839-2.539-1.599.79-1.575.952-3.28.479-5.072zm-2.575 5.397c-.725.939-1.587 1.55-2.09 1.856-.081-.029-.163-.06-.243-.093l-.065-.026c-1.49-.616-2.747-1.656-3.635-3.01-.907-1.384-1.356-2.993-1.298-4.653.041-1.19.338-2.327.882-3.379.316-.07.638-.114.96-.131l.084-.002c.162-.003.324-.003.478 0 .227.011.454.035.677.07.073 1.513.445 3.145 1.105 4.852.637 1.644 1.694 3.162 3.144 4.515z"/></svg>
+          </div>
+          <div class="tech-name">Firebase</div>
+        </div>
+        <!-- Google Gemini -->
+        <div class="tech-node glass-panel">
+          <div class="tech-icon">
+            <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"><title>Google Gemini</title><path d="M11.04 19.32Q12 21.51 12 24q0-2.49.93-4.68.96-2.19 2.58-3.81t3.81-2.55Q21.51 12 24 12q-2.49 0-4.68-.93a12.3 12.3 0 0 1-3.81-2.58 12.3 12.3 0 0 1-2.58-3.81Q12 2.49 12 0q0 2.49-.96 4.68-.93 2.19-2.55 3.81a12.3 12.3 0 0 1-3.81 2.58Q2.49 12 0 12q2.49 0 4.68.96 2.19.93 3.81 2.55t2.55 3.81"/></svg>
+          </div>
+          <div class="tech-name">Google Gemini AI</div>
+        </div>
+        <!-- Anthropic Claude -->
+        <div class="tech-node glass-panel">
+          <div class="tech-icon">
+            <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"><title>Anthropic</title><path d="M17.3041 3.541h-3.6718l6.696 16.918H24Zm-10.6082 0L0 20.459h3.7442l1.3693-3.5527h7.0052l1.3693 3.5528h3.7442L10.5363 3.5409Zm-.3712 10.2232 2.2914-5.9456 2.2914 5.9456Z"/></svg>
+          </div>
+          <div class="tech-name">Anthropic Claude</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why Choose Us / Features Section -->
+    <section id="why-choose-us">
+      <div class="section-header reveal">
+        <span class="section-subtitle">Why Us</span>
+        <h2 class="section-title">Designed to Scale</h2>
+        <p>We do not use cookie-cutter templates. We craft responsive web structures optimized for high retention.</p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px; margin-top: 40px;">
+        <!-- Feature 1 -->
+        <div class="glass-panel reveal reveal-left" style="padding: 30px;">
+          <div style="width: 40px; height: 40px; border-radius: 8px; background: rgba(0, 230, 118, 0.08); display: flex; align-items: center; justify-content: center; color: var(--neon-green); margin-bottom: 20px;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+          </div>
+          <h4 style="font-size: 1.1rem; margin-bottom: 8px;">Buttery-Smooth Performance</h4>
+          <p style="font-size: 0.85rem; color: var(--text-secondary);">Average load times stay under 0.8s. Highly optimized asset files, responsive layouts, and zero framework clutter.</p>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="glass-panel reveal reveal-scale" style="padding: 30px;">
+          <div style="width: 40px; height: 40px; border-radius: 8px; background: rgba(0, 176, 255, 0.08); display: flex; align-items: center; justify-content: center; color: var(--neon-cyan); margin-bottom: 20px;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polygon points="12 8 8 12 12 16 16 12 12 8"></polygon></svg>
+          </div>
+          <h4 style="font-size: 1.1rem; margin-bottom: 8px;">Tailored Tech Aesthetics</h4>
+          <p style="font-size: 0.85rem; color: var(--text-secondary);">Minimalist dark layouts, custom glassmorphism, hardware-accelerated animations, and responsive screen flow.</p>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="glass-panel reveal reveal-right" style="padding: 30px;">
+          <div style="width: 40px; height: 40px; border-radius: 8px; background: rgba(189, 91, 247, 0.08); display: flex; align-items: center; justify-content: center; color: var(--neon-violet); margin-bottom: 20px;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="7.5 4.21 12 6.81 16.5 4.21"></polyline><polyline points="7.5 19.79 7.5 14.6 3 12"></polyline><polyline points="21 12 16.5 14.6 16.5 19.79"></polyline><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+          </div>
+          <h4 style="font-size: 1.1rem; margin-bottom: 8px;">Direct Co-Founder Communication</h4>
+          <p style="font-size: 0.85rem; color: var(--text-secondary);">Collaborate straight with Akshansh, Aarav, or Arshh. No sales reps, no layers of developers, total agility.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Accordion FAQs -->
+    <section id="faq">
+      <div class="section-header reveal">
+        <span class="section-subtitle">FAQ</span>
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <p>Find quick answers to common questions about our templates, timelines, backends, and AI integrations.</p>
+      </div>
+
+      <div class="faq-list reveal reveal-scale">
+        <!-- Question 1 -->
+        <div class="faq-item">
+          <button class="faq-question-btn">
+            <span>What deliverables are included?</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              We hand off production-ready HTML5, CSS3, and vanilla JS folders, configured Node.js server routes, Firebase collections, and model prompt files. We also set up hosting domains.
+            </div>
+          </div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="faq-item">
+          <button class="faq-question-btn">
+            <span>How fast can a project launch?</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              For our Starter plan template, launch takes under 3 days. Pro plan apps average 7-14 days. Custom Enterprise systems featuring dual-LLM pipelines launch in 3-4 weeks.
+            </div>
+          </div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="faq-item">
+          <button class="faq-question-btn">
+            <span>Do you help with database migration?</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              Yes. If you select our Pro or Enterprise plan, we map existing tables, set up secure Firestore collections, and route them to custom Node API calls.
+            </div>
+          </div>
+        </div>
+
+        <!-- Question 4 -->
+        <div class="faq-item">
+          <button class="faq-question-btn">
+            <span>How do Gemini and Claude API charges work?</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              We help you set up accounts with Google Cloud and Anthropic Console. You only pay for what you query (typically fractions of a cent per prompt). We write cache functions to keep your API bills low.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Client Testimonials Section -->
+    <section id="testimonials">
+      <div class="section-header reveal">
+        <span class="section-subtitle">Testimonials</span>
+        <h2 class="section-title">Client Voices</h2>
+        <p>What our clients and partners say about working alongside ZephyrDevs.</p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr; gap: 30px; max-width: 900px; margin: 40px auto 0;">
+        <!-- Review 1 -->
+        <div class="glass-panel reveal reveal-scale" style="padding: 36px; border-left: 3px solid var(--neon-green);">
+          <div style="display: flex; gap: 4px; color: var(--neon-green); margin-bottom: 16px;">
+            &#9733;&#9733;&#9733;&#9733;&#9733;
+          </div>
+          <p style="font-size: 1rem; color: #ffffff; font-style: italic; margin-bottom: 20px;">
+            "ZephyrDevs built a high-end showcase and reservation website for Rajdarbar Banquet Hall. The visual aesthetics perfectly capture our luxury venue spaces, and our online event booking inquiries grew by 150%!"
+          </p>
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+              <div style="font-size: 0.9rem; font-weight: 700; color: #ffffff;">Rajesh Kumar</div>
+              <div style="font-size: 0.75rem; color: var(--text-secondary);">Owner, <a href="https://rajdarbars.vercel.app" target="_blank" rel="noopener" style="color: var(--neon-green); text-shadow: 0 0 8px var(--neon-green-glow);">Rajdarbar Banquet Hall</a></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review 2 -->
+        <div class="glass-panel reveal reveal-scale" style="padding: 36px; border-left: 3px solid var(--neon-cyan);">
+          <div style="display: flex; gap: 4px; color: var(--neon-cyan); margin-bottom: 16px;">
+            &#9733;&#9733;&#9733;&#9733;&#9733;
+          </div>
+          <p style="font-size: 1rem; color: #ffffff; font-style: italic; margin-bottom: 20px;">
+            "ZephyrDevs built a beautiful, lightweight digital menu and booking system for Haveli Restaurant. It operates smoothly on mobile devices, allowing our guests to view our traditional dishes and book tables in seconds."
+          </p>
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+              <div style="font-size: 0.9rem; font-weight: 700; color: #ffffff;">Sanjay Singh</div>
+              <div style="font-size: 0.75rem; color: var(--text-secondary);">Manager, <a href="https://havelirestaurants.netlify.app" target="_blank" rel="noopener" style="color: var(--neon-cyan); text-shadow: 0 0 8px var(--neon-cyan-glow);">Haveli Restaurant</a></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review 3 -->
+        <div class="glass-panel reveal reveal-scale" style="padding: 36px; border-left: 3px solid var(--neon-violet);">
+          <div style="display: flex; gap: 4px; color: var(--neon-violet); margin-bottom: 16px;">
+            &#9733;&#9733;&#9733;&#9733;&#9733;
+          </div>
+          <p style="font-size: 1rem; color: #ffffff; font-style: italic; margin-bottom: 20px;">
+            "We needed a premium web interface for our commercial and residential complex. ZephyrDevs delivered a stunning website that showcases our spaces beautifully and handles visitor queries seamlessly."
+          </p>
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+              <div style="font-size: 0.9rem; font-weight: 700; color: #ffffff;">PS Verma</div>
+              <div style="font-size: 0.75rem; color: var(--text-secondary);">Representative, <a href="https://rkmsquare.vercel.app" target="_blank" rel="noopener" style="color: var(--neon-violet); text-shadow: 0 0 8px var(--neon-violet-glow);">RKM Square</a></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review 4 -->
+        <div class="glass-panel reveal reveal-scale" style="padding: 36px; border-left: 3px solid var(--neon-green);">
+          <div style="display: flex; gap: 4px; color: var(--neon-green); margin-bottom: 16px;">
+            &#9733;&#9733;&#9733;&#9733;&#9733;
+          </div>
+          <p style="font-size: 1rem; color: #ffffff; font-style: italic; margin-bottom: 20px;">
+            "ZephyrDevs built a beautiful, high-converting website for our wedding decor and catering business, Panna Events. The SEO optimizations got us ranked #1 in Patna for event decors, and our booking inquiries doubled!"
+          </p>
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+              <div style="font-size: 0.9rem; font-weight: 700; color: #ffffff;">Sourav</div>
+              <div style="font-size: 0.75rem; color: var(--text-secondary);">Founder, <a href="https://pannaevents.vercel.app" target="_blank" rel="noopener" style="color: var(--neon-green); text-shadow: 0 0 8px var(--neon-green-glow);">Panna Events</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing Promo Callout -->
+    <section id="cta-promo" class="reveal">
+      <div class="glass-panel" style="padding: 50px; border-radius: 8px; text-align: center; border: 1px dashed var(--neon-cyan);">
+        <h2 style="font-size: 2rem; margin-bottom: 16px;">Transparent Pricing for Every Project</h2>
+        <p style="margin-bottom: 24px; max-width: 600px; margin-left: auto; margin-right: auto;">
+          Whether you want a simple landing page or an enterprise level application with advanced AI functionality, we have flexible plans starting from ₹1,999/year.
+        </p>
+        <div class="hero-ctas">
+          <button class="btn btn-primary" onclick="navigateTo('pricing.html')">View 3 Pricing Plans</button>
+          <button class="btn btn-secondary" onclick="navigateTo('contact.html')">Get Free Quote</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer Section -->
+  <footer>
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo-link">
+          <img src="/assets/zephyrlogo-CVtEupYg.jpg" alt="ZephyrDevs Logo" class="nav-brand-img">
+          <div class="logo-text" style="font-family: var(--font-title); font-size: 1.25rem; font-weight: 800;">Zephyr<span style="color: var(--neon-cyan);">Devs</span></div>
+        </a>
+        <p>Blowing fresh design and AI-driven intelligence into modern digital spaces. Clean code, responsive screens, lightning speed.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="pricing.html">Pricing Plans</a></li>
+          <li><a href="contact.html">Start a Project</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Contact Us</h4>
+        <ul>
+          <li>Email: <a href="#" class="obfuscated-email" data-user="zephyrdevsofficial" data-domain="gmail.com" style="color: var(--neon-cyan);"></a></li>
+          <li>Phone: <a href="tel:+919507859444" style="color: var(--neon-cyan);">+91 95078 59444</a></li>
+          <li>Location: Patna, Bihar, India</li>
+        </ul>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <div>&copy; 2026 ZephyrDevs. All rights reserved. Made with &hearts; by Akshansh, Aarav & Arshh. | <a href="#" onclick="openAdminPanel(event)" style="color: var(--text-tertiary); text-decoration: none; font-family: var(--font-mono); font-size: 0.75rem; margin-left: 5px;">[Admin Portal]</a></div>
+      <div class="footer-social-icons">
+        <a href="https://instagram.com/zephyrdevs" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+        </a>
+        <a href="https://linkedin.com/company/zephyrdevs" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+        </a>
+        <a href="https://twitter.com/zephyrdevs" target="_blank" rel="noopener" aria-label="Twitter">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
+        </a>
+        <a href="https://facebook.com/zephyrdevs" target="_blank" rel="noopener" aria-label="Facebook">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

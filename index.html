@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZephyrDevs | Premium Web Development &amp; AI Integrations</title>
+  <meta name="description" content="ZephyrDevs is a premium design and development agency building fast, responsive, and intelligence-driven web applications using HTML5, Node.js, Firebase, Google Gemini, and Anthropic Claude.">
+  <meta name="keywords" content="web development, AI integration, Google Gemini, Anthropic Claude, custom design agency, Firebase development, Node.js developer, responsive web design, Patna Bihar web design">
+  <link rel="canonical" href="https://zephyr-devs.vercel.app/">
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://zephyr-devs.vercel.app/">
+  <meta property="og:title" content="ZephyrDevs | Premium Web Development &amp; AI Integrations">
+  <meta property="og:description" content="Premium design and development agency building fast, responsive, and intelligence-driven web applications using HTML5, Node.js, Firebase, Google Gemini, and Anthropic Claude.">
+  <meta property="og:image" content="https://zephyr-devs.vercel.app/zephyrlogo.jpg">
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://zephyr-devs.vercel.app/">
+  <meta property="twitter:title" content="ZephyrDevs | Premium Web Development &amp; AI Integrations">
+  <meta property="twitter:description" content="Premium design and development agency building fast, responsive, and intelligence-driven web applications using HTML5, Node.js, Firebase, Google Gemini, and Anthropic Claude.">
+  <meta property="twitter:image" content="https://zephyr-devs.vercel.app/zephyrlogo.jpg">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/jpeg" href="zephyrlogo.jpg">
+  <!-- Structured Data JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "ZephyrDevs",
+    "url": "https://zephyr-devs.vercel.app/",
+    "logo": "https://zephyr-devs.vercel.app/zephyrlogo.jpg",
+    "image": "https://zephyr-devs.vercel.app/rajdarbar.webp",
+    "description": "Bespoke digital design and high-converting AI integrations. Fast, clean, responsive websites using Gemini and Claude APIs.",
+    "telephone": "+91-95078-59444",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Patna",
+      "addressRegion": "Bihar",
+      "addressCountry": "IN"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": "25.5941",
+      "longitude": "85.1376"
+    },
+    "openingHoursSpecification": {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+      "opens": "09:00",
+      "closes": "18:00"
+    },
+    "sameAs": [
+      "https://instagram.com/zephyrdevs",
+      "https://twitter.com/zephyrdevs",
+      "https://linkedin.com/company/zephyrdevs"
+    ]
+  }
+  </script>
+</head>
+<body class="loading-active">
+  <!-- Grain Overlay -->
+  <div class="grain"></div>
+
+  <!-- Aurora Backdrop Gradients -->
+  <div class="aurora">
+    <i class="a1"></i>
+    <i class="a2"></i>
+    <i class="a3"></i>
+    <div class="beam"></div>
+  </div>
+
+  <!-- Custom Interactive Cursor -->
+  <div class="cursor-dot"></div>
+  <div class="cursor-ring"></div>
+
+  <!-- Cinematic Intro Gate -->
+  <div id="intro-gate" class="intro-gate">
+    <div class="intro-panel"></div>
+    <div class="intro-content">
+      <img src="zephyrlogo.jpg" alt="ZephyrDevs Logo" class="intro-logo">
+      <div class="intro-tagline" id="intro-tagline"></div>
+      <div class="intro-subtitle">zephyrdevs — 2026</div>
+    </div>
+    <div class="intro-meta">
+      <div class="intro-meta-info">
+        <span class="intro-loading-text">We Levlled Up.</span>
+        <span class="intro-counter"><span id="intro-counter-val">000</span><span class="intro-counter-percent">%</span></span>
+      </div>
+      <div class="intro-progress-track">
+        <div class="intro-progress-fill" id="intro-progress"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Glowing Cursor Flashlight Spotlight -->
+  <div id="flashlight-glow"></div>
+
+  <!-- Interactive Particles Canvas -->
+  <canvas id="background-canvas"></canvas>
+
+  <!-- Floating Glassmorphic Top Nav Pill Bar -->
+  <div class="nav-pill-wrapper reveal">
+    <nav class="nav-pill">
+      <a href="index.html" class="nav-brand">
+        <img src="zephyrlogo.jpg" alt="ZephyrDevs Logo" class="nav-brand-img">
+        <div>Zephyr<span>Devs</span></div>
+      </a>
+      
+      <!-- Desktop Navigation links -->
+      <div class="nav-links-container">
+        <div class="nav-indicator"></div>
+        <div class="nav-link-item" onclick="navigateTo('index.html')">Home</div>
+        <div class="nav-link-item" onclick="navigateTo('services.html')">Services</div>
+        <div class="nav-link-item" onclick="navigateTo('pricing.html')">Pricing</div>
+        <div class="nav-link-item" onclick="navigateTo('contact.html')">Start Project</div>
+      </div>
+
+      <!-- Let's Talk CTA button -->
+      <button class="nav-cta-btn" onclick="navigateTo('contact.html')">Let's Talk</button>
+      
+      <!-- Mobile menu hamburger button -->
+      <button class="nav-burger" id="nav-burger-btn" aria-label="Toggle Navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </nav>
+  </div>
+
+  <!-- Mobile Drawer Menu Overlay -->
+  <div class="mobile-drawer" id="mobile-drawer-menu">
+    <div class="mobile-nav-link" onclick="navigateTo('index.html')">Home</div>
+    <div class="mobile-nav-link" onclick="navigateTo('services.html')">Services</div>
+    <div class="mobile-nav-link" onclick="navigateTo('pricing.html')">Pricing</div>
+    <div class="mobile-nav-link" onclick="navigateTo('contact.html')">Start Project</div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════════ -->
+  <!--  MAIN CONTENT                                                       -->
+  <!-- ═══════════════════════════════════════════════════════════════════ -->
+  <main class="container">
+
+    <!-- ── 1. HERO — Full Viewport Editorial ──────────────────────────── -->
+    <div id="hero-root">
+      <section class="hero-v2">
+
+        <!-- Animated gradient mesh background -->
+        <div class="mesh-bg">
+          <div class="mesh-orb orb-gold"></div>
+          <div class="mesh-orb orb-indigo"></div>
+          <div class="mesh-orb orb-rose"></div>
+        </div>
+
+        <!-- Left: Editorial text column -->
+        <div class="hero-editorial bento-reveal">
+          <div class="hero-badge-v2">
+            <span class="badge-dot"></span> Accepting Projects &middot; 2026
+          </div>
+
+          <h1 class="hero-display">
+            <span class="line">We don't build</span>
+            <span class="line"><em>websites.</em></span>
+            <span class="line">We build</span>
+            <span class="line text-gold">experiences.</span>
+          </h1>
+
+          <p class="hero-sub-v2">
+            Bespoke digital design &amp; AI integration studio from Patna, Bihar.
+            Powered by HTML5, Node.js, Firebase, Google Gemini, and Anthropic Claude.
+          </p>
+
+          <div class="hero-ctas-v2">
+            <button class="btn-gold" onclick="navigateTo('contact.html')">
+              Start a Project
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </button>
+            <button class="btn-ghost" onclick="navigateTo('services.html')">
+              Explore Services
+            </button>
+          </div>
+
+          <div class="hero-badges-row">
+            <div class="float-badge"><span>24+</span> Projects Shipped</div>
+            <div class="float-badge"><span>4</span> Live Clients</div>
+            <div class="float-badge"><span>AI</span> Powered</div>
+            <div class="float-badge"><span>99.9%</span> Uptime</div>
+          </div>
+        </div>
+
+        <!-- Right: 3D device mockup -->
+        <div class="hero-device bento-reveal">
+          <div class="device-frame" id="hero-device-frame">
+            <div class="device-screen">
+              <div class="device-project-slide active" id="device-slide-0">
+                <img src="rajdarbar.webp" alt="Rajdarbar Banquet" class="device-proj-img">
+                <div class="device-proj-label">Live Project · 01</div>
+                <div class="device-proj-name">Rajdarbar Banquet Hall</div>
+                <div class="device-proj-desc">High-end showcase with interactive maps &amp; automated inquiry routing.</div>
+              </div>
+              <div class="device-project-slide" id="device-slide-1">
+                <img src="haveli.webp" alt="Haveli Restaurant" class="device-proj-img">
+                <div class="device-proj-label">Live Project · 02</div>
+                <div class="device-proj-name">Haveli Restaurant</div>
+                <div class="device-proj-desc">Lightweight digital menu and table booking system. &lt; 0.6s load time.</div>
+              </div>
+              <div class="device-project-slide" id="device-slide-2">
+                <img src="rkm.webp" alt="RKM Square" class="device-proj-img">
+                <div class="device-proj-label">Live Project · 03</div>
+                <div class="device-proj-name">RKM Square</div>
+                <div class="device-proj-desc">Premium corporate portal for commercial space leasing.</div>
+              </div>
+              <div class="device-project-slide" id="device-slide-3">
+                <img src="panna.webp" alt="Panna Events" class="device-proj-img">
+                <div class="device-proj-label">Live Project · 04</div>
+                <div class="device-proj-name">Panna Events</div>
+                <div class="device-proj-desc">High-converting event catering portfolio optimized for local SEO.</div>
+              </div>
+              <div class="device-dots">
+                <div class="device-dot active" id="hero-dot-0"></div>
+                <div class="device-dot" id="hero-dot-1"></div>
+                <div class="device-dot" id="hero-dot-2"></div>
+                <div class="device-dot" id="hero-dot-3"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+    </div>
+
+    <!-- ── 2. MARQUEE TICKER STRIP ────────────────────────────────────── -->
+    <div class="marquee-strip">
+      <div class="marquee-track">
+        <span class="marquee-item">Web Design</span><span class="marquee-sep">·</span>
+        <span class="marquee-item">AI Integration</span><span class="marquee-sep">·</span>
+        <span class="marquee-item">Firebase</span><span class="marquee-sep">·</span>
+        <span class="marquee-item">Node.js</span><span class="marquee-sep">·</span>
+        <span class="marquee-item">Advanced SEO</span><span class="marquee-sep">·</span>
+        <span class="marquee-item">Google Gemini</span><span class="marquee-sep">·</span>
+        <span class="marquee-item">Anthropic Claude</span><span class="marquee-sep">·</span>
+        <span class="marquee-item">Custom Animations</span><span class="marquee-sep">·</span>
+        <span class="marquee-item">Fast Delivery</span><span class="marquee-sep">·</span>
+        <span class="marquee-item">Patna, Bihar</span><span class="marquee-sep">·</span>
+        <!-- Duplicate for seamless loop -->
+        <span class="marquee-item">Web Design</span><span class="marquee-sep">·</span>
+        <span class="marquee-item">AI Integration</span><span class="marquee-sep">·</span>
+        <span class="marquee-item">Firebase</span><span class="marquee-sep">·</span>
+        <span class="marquee-item">Node.js</span><span class="marquee-sep">·</span>
+        <span class="marquee-item">Advanced SEO</span><span class="marquee-sep">·</span>
+        <span class="marquee-item">Google Gemini</span><span class="marquee-sep">·</span>
+        <span class="marquee-item">Anthropic Claude</span><span class="marquee-sep">·</span>
+        <span class="marquee-item">Custom Animations</span><span class="marquee-sep">·</span>
+        <span class="marquee-item">Fast Delivery</span><span class="marquee-sep">·</span>
+        <span class="marquee-item">Patna, Bihar</span><span class="marquee-sep">·</span>
+      </div>
+    </div>
+
+    <!-- ── 3. PORTFOLIO — Editorial Numbered Rows ─────────────────────── -->
+    <section id="showcase" class="section-v2">
+      <div class="section-header-v2 bento-reveal">
+        <span class="label-tag">Portfolio</span>
+        <h2>Recent Work</h2>
+        <p>A handpicked selection of custom web applications and live productions we've shipped for clients.</p>
+      </div>
+
+      <div class="projects-list">
+
+        <!-- Project 01: Rajdarbar -->
+        <div class="project-row bento-reveal" onclick="openLivePreview('https://rajdarbars.netlify.app', 'Rajdarbar Banquet Hall', event)" role="button" tabindex="0" aria-label="View Rajdarbar Banquet Hall project">
+          <div class="proj-num">01</div>
+          <div class="proj-img-wrap">
+            <img src="rajdarbar.webp" alt="Rajdarbar Banquet Hall Preview" class="proj-img" loading="lazy">
+          </div>
+          <div class="proj-info">
+            <div class="proj-live-badge"><span class="proj-live-dot"></span> Live</div>
+            <div class="proj-name">Rajdarbar Banquet Hall</div>
+            <p class="proj-desc">High-end showcase portal with interactive maps and automated inquiry routing.</p>
+            <div class="proj-tags">
+              <span class="proj-tag">Reservations</span>
+              <span class="proj-tag">Showcase</span>
+              <span class="proj-tag">Banquet</span>
+            </div>
+          </div>
+          <div class="proj-arrow">→</div>
+        </div>
+
+        <!-- Project 02: Haveli -->
+        <div class="project-row bento-reveal" onclick="openLivePreview('https://havelirestaurants.netlify.app', 'Haveli Restaurant', event)" role="button" tabindex="0" aria-label="View Haveli Restaurant project">
+          <div class="proj-num">02</div>
+          <div class="proj-img-wrap">
+            <img src="haveli.webp" alt="Haveli Restaurant Preview" class="proj-img" loading="lazy">
+          </div>
+          <div class="proj-info">
+            <div class="proj-live-badge"><span class="proj-live-dot"></span> Live · &lt; 0.6s load</div>
+            <div class="proj-name">Haveli Restaurant</div>
+            <p class="proj-desc">Lightweight digital menu and table booking system, mobile-first with sub-second load speeds.</p>
+            <div class="proj-tags">
+              <span class="proj-tag">Restaurant</span>
+              <span class="proj-tag">Booking</span>
+            </div>
+          </div>
+          <div class="proj-arrow">→</div>
+        </div>
+
+        <!-- Project 03: RKM Square -->
+        <div class="project-row bento-reveal" onclick="openLivePreview('https://rkmsquare.vercel.app', 'RKM Square', event)" role="button" tabindex="0" aria-label="View RKM Square project">
+          <div class="proj-num">03</div>
+          <div class="proj-img-wrap">
+            <img src="rkm.webp" alt="RKM Square Preview" class="proj-img" loading="lazy">
+          </div>
+          <div class="proj-info">
+            <div class="proj-live-badge"><span class="proj-live-dot"></span> Live</div>
+            <div class="proj-name">RKM Square</div>
+            <p class="proj-desc">Premium corporate web portal for commercial and residential space leasing.</p>
+            <div class="proj-tags">
+              <span class="proj-tag">Leasing Tech</span>
+              <span class="proj-tag">Corporate</span>
+            </div>
+          </div>
+          <div class="proj-arrow">→</div>
+        </div>
+
+        <!-- Project 04: Panna Events -->
+        <div class="project-row bento-reveal" onclick="openLivePreview('https://pannaevents.vercel.app', 'Panna Events', event)" role="button" tabindex="0" aria-label="View Panna Events project">
+          <div class="proj-num">04</div>
+          <div class="proj-img-wrap">
+            <img src="panna.webp" alt="Panna Events Preview" class="proj-img" loading="lazy">
+          </div>
+          <div class="proj-info">
+            <div class="proj-live-badge"><span class="proj-live-dot"></span> Live · #1 Patna SEO</div>
+            <div class="proj-name">Panna Events</div>
+            <p class="proj-desc">High-converting portfolio for wedding decor &amp; event catering, ranked #1 in Patna for event searches.</p>
+            <div class="proj-tags">
+              <span class="proj-tag">SEO Optimized</span>
+              <span class="proj-tag">Events</span>
+            </div>
+          </div>
+          <div class="proj-arrow">→</div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── 4. STATS STRIP ─────────────────────────────────────────────── -->
+    <div class="stats-v2 reveal reveal-scale">
+      <div class="stat-v2-item">
+        <div class="stat-v2-num">99.9%</div>
+        <div class="stat-v2-label">Hosting Uptime</div>
+      </div>
+      <div class="stat-v2-item">
+        <div class="stat-v2-num">&lt; 0.8s</div>
+        <div class="stat-v2-label">First Paint Speed</div>
+      </div>
+      <div class="stat-v2-item">
+        <div class="stat-v2-num">24+</div>
+        <div class="stat-v2-label">Production Apps</div>
+      </div>
+      <div class="stat-v2-item">
+        <div class="stat-v2-num">50k+</div>
+        <div class="stat-v2-label">AI Token Queries</div>
+      </div>
+    </div>
+
+    <!-- ── 5. TESTIMONIALS — CLIENT VOICES (MOVED UPWARDS) ─────────────── -->
+    <section id="testimonials" class="section-v2">
+      <div class="section-header-v2 reveal">
+        <span class="label-tag">Testimonials</span>
+        <h2>Client Voices</h2>
+        <p>What our clients say about working alongside ZephyrDevs.</p>
+      </div>
+
+      <div class="testimonials-masonry reveal">
+
+        <!-- Review 1 -->
+        <div class="testi-card reveal reveal-left">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-quote">"ZephyrDevs built a high-end showcase and reservation website for Rajdarbar Banquet Hall. The visual aesthetics perfectly capture our luxury venue spaces, and our online event booking inquiries grew by 150%!"</p>
+          <div class="testi-author">
+            <div class="testi-avatar" style="background: linear-gradient(135deg, rgba(163,230,53,0.35), rgba(132,204,22,0.25)); border: 1px solid rgba(163,230,53,0.2);">RK</div>
+            <div>
+              <div class="testi-info-name">Rajesh Kumar</div>
+              <div class="testi-info-company"><a href="https://rajdarbars.vercel.app" target="_blank" rel="noopener">Rajdarbar Banquet Hall</a></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review 2 -->
+        <div class="testi-card reveal reveal-right" style="margin-top: 32px;">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-quote">"ZephyrDevs built a beautiful, lightweight digital menu and booking system for Haveli Restaurant. It operates smoothly on mobile devices, allowing our guests to view our traditional dishes and book tables in seconds."</p>
+          <div class="testi-author">
+            <div class="testi-avatar" style="background: linear-gradient(135deg, rgba(132,204,22,0.35), rgba(190,242,100,0.25)); border: 1px solid rgba(163,230,53,0.2);">SS</div>
+            <div>
+              <div class="testi-info-name">Sanjay Singh</div>
+              <div class="testi-info-company"><a href="https://havelirestaurants.netlify.app" target="_blank" rel="noopener">Haveli Restaurant</a></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review 3 -->
+        <div class="testi-card reveal reveal-left">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-quote">"We needed a premium web interface for our commercial and residential complex. ZephyrDevs delivered a stunning website that showcases our spaces beautifully and handles visitor queries seamlessly."</p>
+          <div class="testi-author">
+            <div class="testi-avatar" style="background: linear-gradient(135deg, rgba(190,242,100,0.35), rgba(163,230,53,0.25)); border: 1px solid rgba(163,230,53,0.2);">PV</div>
+            <div>
+              <div class="testi-info-name">PS Verma</div>
+              <div class="testi-info-company"><a href="https://rkmsquare.vercel.app" target="_blank" rel="noopener">RKM Square</a></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review 4 -->
+        <div class="testi-card reveal reveal-right" style="margin-top: 32px;">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-quote">"ZephyrDevs built a beautiful, high-converting website for Panna Events. The SEO optimizations got us ranked #1 in Patna for event decors, and our booking inquiries doubled!"</p>
+          <div class="testi-author">
+            <div class="testi-avatar" style="background: linear-gradient(135deg, rgba(163,230,53,0.35), rgba(132,204,22,0.25)); border: 1px solid rgba(163,230,53,0.2);">S</div>
+            <div>
+              <div class="testi-info-name">Sourav</div>
+              <div class="testi-info-company"><a href="https://pannaevents.vercel.app" target="_blank" rel="noopener">Panna Events</a></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── 6. SERVICES — Icon Card Grid ──────────────────────────────── -->
+    <section id="services-preview" class="section-v2">
+      <div class="section-header-v2 reveal">
+        <span class="label-tag">What We Build</span>
+        <h2>Our Services</h2>
+        <p>We build lightweight interfaces integrated with the most powerful AI tools available today.</p>
+      </div>
+
+      <div class="services-grid-v2 reveal">
+        <!-- Card 1 -->
+        <div class="service-card-v2">
+          <svg class="svc-icon" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M3 9h18M9 21V9"></path></svg>
+          <div class="svc-name">Bespoke Web Design</div>
+          <p class="svc-desc">Pixel-perfect, responsive UI with glassmorphic dark layouts, custom animations, and premium typography.</p>
+          <span class="svc-arrow">→ View Services</span>
+        </div>
+        <!-- Card 2 -->
+        <div class="service-card-v2">
+          <svg class="svc-icon" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 8v4l3 3"></path></svg>
+          <div class="svc-name">AI Integration</div>
+          <p class="svc-desc">Wire your app with Google Gemini and Anthropic Claude — chatbots, semantic search, auto-summarization.</p>
+          <span class="svc-arrow">→ View Services</span>
+        </div>
+        <!-- Card 3 -->
+        <div class="service-card-v2">
+          <svg class="svc-icon" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg>
+          <div class="svc-name">Firebase Backend</div>
+          <p class="svc-desc">Realtime Firestore sync, Firebase Auth, serverless Node.js API routes, and scalable cloud infrastructure.</p>
+          <span class="svc-arrow">→ View Services</span>
+        </div>
+        <!-- Card 4 -->
+        <div class="service-card-v2">
+          <svg class="svc-icon" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <div class="svc-name">Advanced SEO</div>
+          <p class="svc-desc">Schema markup, XML sitemaps, llms.txt, Core Web Vitals optimization, and local SEO for Patna &amp; beyond.</p>
+          <span class="svc-arrow">→ View Services</span>
+        </div>
+        <!-- Card 5 -->
+        <div class="service-card-v2">
+          <svg class="svc-icon" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+          <div class="svc-name">Mobile Optimization</div>
+          <p class="svc-desc">Touch-friendly responsive layouts with mobile-first breakpoints and sub-second mobile load performance.</p>
+          <span class="svc-arrow">→ View Services</span>
+        </div>
+        <!-- Card 6 -->
+        <div class="service-card-v2">
+          <svg class="svc-icon" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+          <div class="svc-name">Custom Animations</div>
+          <p class="svc-desc">Hardware-accelerated CSS keyframes, scroll-reveal systems, cinematic intro gates, and magnetic hover effects.</p>
+          <span class="svc-arrow">→ View Services</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 7. PROCESS — Horizontal Scroll Timeline ────────────────────── -->
+    <section id="lifecycle" class="process-section">
+      <div class="section-header-v2 reveal" style="padding: 0 0 48px;">
+        <span class="label-tag">02 / How We Work</span>
+        <h2>From zero to shipped.<br><em style="font-style:italic; color: var(--text-secondary);">No detours.</em></h2>
+        <p>We start by listening, design architecture before coding, and ship daily commits with weekly live demos.</p>
+        <div class="process-hint" style="margin-top:12px; text-align:left;">← Scroll to explore →</div>
+      </div>
+
+      <div class="process-scroll-wrap reveal" id="process-scroll">
+        <div class="process-track">
+
+          <div class="process-step">
+            <div class="process-step-num">01 / Discover</div>
+            <div class="process-step-title">Briefing &amp; Wireframes</div>
+            <p class="process-step-desc">Mapping out page flow, visual guidelines, database nodes, and custom style specifications with you.</p>
+          </div>
+
+          <div class="process-step">
+            <div class="process-step-num">02 / Design</div>
+            <div class="process-step-title">Interactive Mockups</div>
+            <p class="process-step-desc">Creating glassmorphic CSS layouts, custom typography scales, and responsive templates for sign-off.</p>
+          </div>
+
+          <div class="process-step">
+            <div class="process-step-num">03 / Build</div>
+            <div class="process-step-title">Frontend &amp; Backend</div>
+            <p class="process-step-desc">Writing fast, pure HTML5/JS files, coding Node backend routes, and configuring Firebase databases.</p>
+          </div>
+
+          <div class="process-step">
+            <div class="process-step-num">04 / Intelligence</div>
+            <div class="process-step-title">AI Orchestration</div>
+            <p class="process-step-desc">Integrating Gemini and Claude models, designing system prompts, and optimizing API token budgets.</p>
+          </div>
+
+          <div class="process-step">
+            <div class="process-step-num">05 / Launch</div>
+            <div class="process-step-title">Audit &amp; Deploy</div>
+            <p class="process-step-desc">Auditing animation timings, optimizing SEO configurations, and launching to global edge servers.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 8. TEAM — FOUNDERS (MOVED DOWNWARDS) ────────────────────────── -->
+    <section id="founders" class="section-v2">
+      <div class="section-header-v2 reveal">
+        <span class="label-tag">Leadership</span>
+        <h2>Meet the Founders</h2>
+        <p>A team of design-obsessed engineers pushing the boundaries of custom web experiences.</p>
+      </div>
+
+      <div class="team-grid-v2">
+
+        <!-- Akshansh Sinha -->
+        <div class="team-card-v2 reveal reveal-left">
+          <div class="team-avatar-v2" style="background: linear-gradient(135deg, rgba(163,230,53,0.25), rgba(132,204,22,0.18)); border: 1px solid rgba(163,230,53,0.2);">
+            AS
+          </div>
+          <div class="team-role-badge">Co-Founder &middot; Tech Architect</div>
+          <div class="team-name-v2">Akshansh Sinha</div>
+          <p class="team-bio-v2">Specializes in backend architecture, Google Gemini model tuning, and cloud-native solutions with Node.js and Firebase.</p>
+          <a href="https://instagram.com/akshansh_6969" target="_blank" rel="noopener" class="team-insta">
+            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+            @akshansh_6969
+          </a>
+        </div>
+
+        <!-- Aarav Sharma -->
+        <div class="team-card-v2 reveal reveal-scale">
+          <div class="team-avatar-v2" style="background: linear-gradient(135deg, rgba(132,204,22,0.25), rgba(190,242,100,0.18)); border: 1px solid rgba(163,230,53,0.2);">
+            AS
+          </div>
+          <div class="team-role-badge">Co-Founder &middot; Creative Lead</div>
+          <div class="team-name-v2">Aarav Sharma</div>
+          <p class="team-bio-v2">Designs premium glassmorphic UI interfaces, creates fluid custom animations, and manages Claude AI API pipelines.</p>
+          <a href="https://instagram.com/aarav_sharma_sui" target="_blank" rel="noopener" class="team-insta">
+            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+            @aarav_sharma_sui
+          </a>
+        </div>
+
+        <!-- Arshh -->
+        <div class="team-card-v2 reveal reveal-right">
+          <div class="team-avatar-v2" style="background: linear-gradient(135deg, rgba(190,242,100,0.25), rgba(163,230,53,0.18)); border: 1px solid rgba(163,230,53,0.2);">
+            AR
+          </div>
+          <div class="team-role-badge">Co-Founder &middot; Lead AI Engineer</div>
+          <div class="team-name-v2">Arshh</div>
+          <p class="team-bio-v2">Focuses on advanced Claude AI workflows, neural-network integrations, and high-performance server logic.</p>
+          <a href="https://instagram.com/arshhispro_" target="_blank" rel="noopener" class="team-insta">
+            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+            @arshhispro_
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── 9. FAQ ──────────────────────────────────────────────────────── -->
+    <section id="faq" class="section-v2">
+      <div class="section-header-v2 reveal">
+        <span class="label-tag">FAQ</span>
+        <h2>Frequently Asked Questions</h2>
+        <p>Quick answers to common questions about timelines, deliverables, backends, and AI integrations.</p>
+      </div>
+
+      <div class="faq-list-v2 reveal">
+        <!-- Question 1 -->
+        <div class="faq-item">
+          <button class="faq-question-btn">
+            <span>What deliverables are included?</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              We hand off production-ready HTML5, CSS3, and vanilla JS folders, configured Node.js server routes, Firebase collections, and model prompt files. We also set up hosting domains.
+            </div>
+          </div>
+        </div>
+        <!-- Question 2 -->
+        <div class="faq-item">
+          <button class="faq-question-btn">
+            <span>How fast can a project launch?</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              For our Starter plan template, launch takes under 3 days. Pro plan apps average 7–14 days. Custom Enterprise systems featuring dual-LLM pipelines launch in 3–4 weeks.
+            </div>
+          </div>
+        </div>
+        <!-- Question 3 -->
+        <div class="faq-item">
+          <button class="faq-question-btn">
+            <span>Do you help with database migration?</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              Yes. If you select our Pro or Enterprise plan, we map existing tables, set up secure Firestore collections, and route them to custom Node API calls.
+            </div>
+          </div>
+        </div>
+        <!-- Question 4 -->
+        <div class="faq-item">
+          <button class="faq-question-btn">
+            <span>How do Gemini and Claude API charges work?</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              We help you set up accounts with Google Cloud and Anthropic Console. You only pay for what you query (typically fractions of a cent per prompt). We write cache functions to keep your API bills low.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 10. CTA BANNER — Full Bleed ────────────────────────────────── -->
+    <section class="cta-banner-v2 reveal reveal-scale">
+      <h2>Ready to Build<br>Something Exceptional?</h2>
+      <p>
+        Whether you need a fast landing page or a full-stack app with dual-AI capabilities, we have flexible plans starting from <strong style="color: var(--neon-cyan);">₹1,999/year</strong>.
+      </p>
+      <div class="cta-btns">
+        <button class="btn-gold" onclick="navigateTo('pricing.html')">
+          View 3 Pricing Plans
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </button>
+        <button class="btn-ghost" onclick="navigateTo('contact.html')">
+          Get Free Quote
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═══════════════════════════════════════════════════════════════════ -->
+  <!-- FOOTER                                                              -->
+  <!-- ═══════════════════════════════════════════════════════════════════ -->
+  <footer class="footer-v2">
+    <div class="container footer-v2-grid">
+
+      <!-- Brand column -->
+      <div class="footer-v2-brand">
+        <a href="index.html" style="text-decoration:none; display:block; margin-bottom: 12px;">
+          <div class="logo-text">Zephyr<span>Devs</span></div>
+        </a>
+        <p>Blowing fresh design and AI-driven intelligence into modern digital spaces. Clean code, responsive screens, lightning speed.</p>
+        <div class="footer-socials-v2">
+          <a href="https://instagram.com/zephyrdevs" target="_blank" rel="noopener" class="footer-social-v2" aria-label="Instagram">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+          </a>
+          <a href="https://linkedin.com/company/zephyrdevs" target="_blank" rel="noopener" class="footer-social-v2" aria-label="LinkedIn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+          </a>
+          <a href="https://twitter.com/zephyrdevs" target="_blank" rel="noopener" class="footer-social-v2" aria-label="Twitter">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
+          </a>
+          <a href="https://facebook.com/zephyrdevs" target="_blank" rel="noopener" class="footer-social-v2" aria-label="Facebook">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="footer-v2-col">
+        <h5>Navigation</h5>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="pricing.html">Pricing Plans</a></li>
+          <li><a href="contact.html">Start a Project</a></li>
+        </ul>
+      </div>
+
+      <!-- Services -->
+      <div class="footer-v2-col">
+        <h5>Services</h5>
+        <ul>
+          <li><a href="services.html">Web Design</a></li>
+          <li><a href="services.html">AI Integration</a></li>
+          <li><a href="services.html">Firebase Backend</a></li>
+          <li><a href="services.html">SEO &amp; Analytics</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div class="footer-v2-col">
+        <h5>Contact Us</h5>
+        <ul>
+          <li><a href="#" class="obfuscated-email" data-user="zephyrdevsofficial" data-domain="gmail.com" style="color: var(--neon-cyan);"></a></li>
+          <li><a href="tel:+919507859444" style="color: var(--neon-cyan);">+91 95078 59444</a></li>
+          <li style="color: var(--text-secondary); font-size: 0.875rem;">Patna, Bihar, India</li>
+          <li style="color: var(--text-secondary); font-size: 0.875rem;">Mon–Fri · 9am–6pm IST</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Footer bottom bar -->
+    <div class="container footer-v2-bottom">
+      <div class="footer-v2-copy">
+        &copy; 2026 ZephyrDevs. All rights reserved. Made with ♥ by Akshansh, Aarav &amp; Arshh.
+        <a href="#" onclick="openAdminPanel(event)" style="margin-left: 12px;">[Admin Portal]</a>
+      </div>
+      <div class="footer-v2-made">Handcrafted in Patna, Bihar 🇮🇳</div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+  <script type="module" src="/src/main.tsx"></script>
+
+  <!-- Device Slideshow Script -->
+  <script>
+    (function() {
+      var current = 0;
+      var total = 4;
+      function nextSlide() {
+        var prev = current;
+        current = (current + 1) % total;
+        var slides = document.querySelectorAll('.device-project-slide');
+        var dots = document.querySelectorAll('.device-dot');
+        if (slides[prev]) slides[prev].classList.remove('active');
+        if (slides[current]) slides[current].classList.add('active');
+        if (dots[prev]) dots[prev].classList.remove('active');
+        if (dots[current]) dots[current].classList.add('active');
+      }
+      setInterval(nextSlide, 3200);
+
+      // Horizontal scroll drag on process
+      var wrap = document.getElementById('process-scroll');
+      if (wrap) {
+        var isDown = false, startX, scrollLeft;
+        wrap.addEventListener('mousedown', function(e) {
+          isDown = true;
+          wrap.style.cursor = 'grabbing';
+          startX = e.pageX - wrap.offsetLeft;
+          scrollLeft = wrap.scrollLeft;
+        });
+        wrap.addEventListener('mouseleave', function() { isDown = false; wrap.style.cursor = 'grab'; });
+        wrap.addEventListener('mouseup', function() { isDown = false; wrap.style.cursor = 'grab'; });
+        wrap.addEventListener('mousemove', function(e) {
+          if (!isDown) return;
+          e.preventDefault();
+          var x = e.pageX - wrap.offsetLeft;
+          var walk = (x - startX) * 2;
+          wrap.scrollLeft = scrollLeft - walk;
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
