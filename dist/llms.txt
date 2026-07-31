@@ -1,0 +1,27 @@
+# ZephyrDevs
+> ZephyrDevs is a premium design and development agency specializing in custom Web Apps, Node.js API backends, Firebase, and state-of-the-art AI systems integration including Google Gemini & Anthropic Claude.
+
+## Core Capabilities
+- **Bespoke Frontend**: High-performance, mobile-first responsive interfaces using modern CSS variables, glassmorphic card layouts, interactive sliders, custom cursors, and WebGL particle headers.
+- **Backend Architecture**: High-throughput Node.js APIs, Firebase Firestore real-time synchronization, secure authentication, and scalable serverless routes.
+- **AI Integrations**: Semantic search, smart inputs, auto-summarization, and multi-agent workflows using Google Gemini and Anthropic Claude APIs.
+
+## Subscription Pricing
+ZephyrDevs operates on a transparent annual subscription model:
+- **Starter Plan** (₹1,999/year): 1-2 responsive HTML/CSS pages, sleek minimalist design, basic SEO, and XML sitemap setup.
+- **Pro Plan** (₹2,999/year): Up to 5 pages, Node.js API routes, Firebase Auth & Storage, Google Gemini smart forms, advanced SEO, and `llms.txt` documentation.
+- **Enterprise Plan** (₹4,999/year): Unlimited pages & custom systems, high-performance Node/Express backends, Firebase realtime database, Google Gemini & Claude Dual-LLM configurations, `llms.txt` & `llms-full.txt` contexts, security audits, and 24/7 priority support.
+
+## Site Index
+- [Home Page](https://zephyr-devs.vercel.app/index.html): Showcase, client lists, live indicators, tech stacks, and team rosters.
+- [Services Page](https://zephyr-devs.vercel.app/services.html): Detailed breakdown of frontend, backend, AI integration, and design capabilities.
+- [Pricing Page](https://zephyr-devs.vercel.app/pricing.html): Subscription tier breakdown, features list, and full side-by-side technical comparison matrix.
+- [Contact Page](https://zephyr-devs.vercel.app/contact.html): Interactive project planner form, estimated budget selector, tech stack tick-boxes, and co-founders' direct DMs.
+
+## Contacts & Socials
+- **Official Email**: Zephyrdevsofficial@gmail.com
+- **Instagram DM**: [@zephyrdevs](https://instagram.com/zephyrdevs)
+- **Co-Founders**:
+  - Akshansh Sinha (Co-Founder & Backend Dev)
+  - Aarav Sharma (Co-Founder & Creative UI)
+  - Arshh (Co-Founder & Lead AI Engineer)

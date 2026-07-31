@@ -1,0 +1,108 @@
+# ZephyrDevs - Full Documentation Context
+> Comprehensive aggregated information regarding ZephyrDevs capabilities, services, subscriptions, and team rosters for Large Language Models (LLMs).
+
+---
+
+## 1. Introduction & Brand Philosophy
+ZephyrDevs is a premium design and development agency. We build fast, responsive, and intelligence-driven web applications. We avoid standard templates and instead focus on bespoke dark-mode layouts, vibrant neon color accents, custom animations, and seamless AI agent integrations.
+
+### Stack Specializations:
+- **Languages**: HTML5, CSS3, JavaScript (ES6+), TypeScript
+- **Backend & Cloud**: Node.js, Express, Firebase Firestore & Realtime Database, Serverless functions
+- **AI Models**: Google Gemini API, Anthropic Claude API, Custom Prompts & RAG Pipelines
+
+---
+
+## 2. Core Service Areas
+
+### 01 / Bespoke Frontend Development
+We construct responsive, accessible, and animation-rich user interfaces. Prioritizing pure performance, we write lean HTML5, modern CSS with smooth grids, and responsive vanilla JS layouts.
+- Mobile-First Responsive Frameworks
+- Mac-Styled & Glassmorphic Dashboards
+- Performance Optimization (SEO & Web Vitals)
+- Vanilla JS Scroll Reveals & Micro-animations
+
+### 02 / Backend Architecture & APIs
+Need a robust logic layer for your product? We build high-throughput backend server routes and deploy serverless functions, handling user sessions, secure authentications, and data syncing.
+- Node.js API Development & Deployment
+- Firebase Realtime Database & Firestore Sync
+- Firebase User Authentication & Authorization
+- Scalable Serverless Cloud Infrastructure
+
+### 03 / AI & LLM Systems Integration
+Inject intelligence directly into your app. We wire your systems with large language models, enabling context-aware chat, smart file analysis, auto-summarization, and semantic search.
+- Google Gemini API Pipeline Setup
+- Anthropic Claude Intelligent Agents
+- Custom Prompt Engineering & Pipelines
+- Vector Search & Context Retrieval
+
+### 04 / Interactive Design Systems
+A great product starts with a consistent visual language. We design full style components, interactive prototypes, and design systems featuring custom shadows, cursors, and layouts.
+- Sleek Dark Mode and Neon Accents
+- Top Nav Pill Active Tracking Indicator Menus
+- Custom SVG Brand Assets & Graphics
+- UI Component Library & Style Tokens
+
+---
+
+## 3. Workflow & Delivery Process
+
+### 01 / DISCOVER (Briefing & Wireframes)
+Mapping out page flows, visual guidelines, database nodes, and custom style specifications.
+
+### 02 / DESIGN (Interactive Mockups)
+Creating glassmorphic CSS layouts, custom typography scales, and responsive templates.
+
+### 03 / BUILD (Frontend & Backend)
+Writing fast, pure HTML5/JS files, coding Node backend routes, and configuring Firebase databases.
+
+### 04 / LAUNCH (Audit & Deploy)
+Auditing animation timings, optimizing SEO, and launching pages to global servers.
+
+---
+
+## 4. Subscription Pricing Plans & Matrix
+
+ZephyrDevs operates on a flat-rate annual subscription model rather than complex, fluctuating quotations. GST invoices are provided, all intellectual property belongs to the client, and code is committed to client repositories from day one.
+
+### 4.1 Subscription Plans
+1. **Starter Plan** (₹1,999 / year)
+   - *Target*: Personal hobbies, open-source ideas, portfolio templates.
+   - *Deliverable*: 1-2 Responsive HTML/CSS pages, sleek minimalist design, hosting deployment configuration, XML sitemap integration, basic SEO optimization.
+2. **Pro Plan** (₹2,999 / year)
+   - *Target*: Startups and professional projects requiring database routes and Gemini AI forms.
+   - *Deliverable*: Up to 5 fully responsive pages, Node.js REST API routes, Firebase Storage & Auth setups, Google Gemini smart forms connection, XML sitemap & Pro SEO optimization, llms.txt context index, 3 months developer warranty support.
+3. **Enterprise Plan** (₹4,999 / year)
+   - *Target*: High-throughput database systems, dual-LLM systems, and custom workflows.
+   - *Deliverable*: Unlimited pages & custom systems, high-performance Node API + Express, Firebase Firestore realtime sync, Google Gemini & Claude Dual-LLM configurations, sitemap & advanced enterprise SEO, llms.txt & llms-full.txt context documents, security audit, page load optimization, 24/7 VIP Priority support access.
+
+### 4.2 Detailed Comparison Matrix
+
+| Feature | Starter (₹1,999/yr) | Pro (₹2,999/yr) | Enterprise (₹4,999/yr) |
+|---|---|---|---|
+| **HTML/CSS Pages** | 1-2 Pages | Up to 5 Pages | Unlimited Pages |
+| **Animations** | Custom reveals | Custom reveals | Full UI/WebGL system |
+| **Backend Integration** | None | Standard Firebase/API | High-throughput realtime sync |
+| **Google Gemini AI** | None | Basic forms & chats | Advanced prompts & pipelines |
+| **Anthropic Claude AI** | None | None | Full multi-agent architectures |
+| **Sitemap & SEO** | Basic Setup | Pro SEO & Sitemap | Enterprise SEO & Custom Schema |
+| **AI Context (llms.txt)** | None | llms.txt index | llms.txt & llms-full.txt |
+| **Support SLAs** | Community Discord | Email (12hr SLA) | 24/7 VIP Priority Channel |
+
+---
+
+## 5. Project Planner & Budgets (contact.html)
+For custom quotes, clients can select estimated budgets via our slider:
+- **Starter Subscription** (₹1,999/year)
+- **Pro Subscription** (₹2,999/year)
+- **Enterprise Subscription** (₹4,999/year)
+- **Custom App + Node Backend** (₹40,000 - ₹1,50,000 one-time)
+- **Enterprise dual-LLM Systems** (₹3,00,000 - ₹5,00,000+ one-time)
+
+---
+
+## 6. Team & Roster
+ZephyrDevs is driven by three co-founders:
+1. **Akshansh Sinha** (Co-Founder & Backend Dev) - Focuses on Node.js, Express, databases, and server configurations.
+2. **Aarav Sharma** (Co-Founder & Creative UI) - Focuses on design systems, CSS details, WebGL shaders, and smooth animation systems.
+3. **Arshh** (Co-Founder & Lead AI Engineer) - Focuses on Google Gemini pipeline engineering, Anthropic Claude integrations, and agent design.
