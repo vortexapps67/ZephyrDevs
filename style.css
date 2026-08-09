@@ -5499,3 +5499,48 @@ section.section-v2 {
 }
 
 
+/* =========================================================================
+   MOBILE PERFORMANCE OPTIMIZATIONS
+   Disable heavy continuous GPU animations on mobile to prevent jank/lag.
+   Mobile users keep the static aesthetic; desktop users get full animations.
+   ========================================================================= */
+
+/* Reduced motion preference — respect user's OS-level setting */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Mobile: disable the heaviest continuous animations */
+@media (max-width: 768px) {
+  /* Kill the grain overlay — it's a full-screen animated pseudo-element */
+  .grain { display: none !important; }
+
+  /* Pause aurora blob drift animations — they run 3 instances at 16-21s each */
+  .aurora i, .aurora .beam {
+    animation-play-state: paused !important;
+  }
+
+  /* Kill background orb drift animations */
+  .orb, [class*="orb-"] {
+    animation: none !important;
+  }
+
+  /* Reduce ticker/marquee animations to static */
+  .ticker-track, .marquee-track {
+    animation-play-state: paused !important;
+  }
+
+  /* Hide the full-screen WebGL canvas (JS also skips it, but belt-and-suspenders) */
+  #background-canvas {
+    display: none !important;
+  }
+
+  /* Simplify 3D transforms — they cause compositing overhead */
+  .reveal, .bento-reveal {
+    transform: none !important;
+  }
+}

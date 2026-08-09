@@ -10,6 +10,12 @@ export function WebGLShader({ className = "fixed top-0 left-0 w-full h-full bloc
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
+    // Skip WebGL shader on mobile — too heavy for mobile GPUs.
+    // The hero card still shows its dark background which looks clean.
+    const isMobile = window.matchMedia('(max-width: 768px)').matches
+      || window.matchMedia('(pointer: coarse)').matches;
+    if (isMobile) return;
+
     if (!canvasRef.current) return
 
     const canvas = canvasRef.current
@@ -375,7 +381,7 @@ void main() {
       const parent = canvas.parentElement
       const width = parent ? parent.clientWidth : window.innerWidth
       const height = parent ? parent.clientHeight : window.innerHeight
-      const dpr = Math.min(window.devicePixelRatio || 1, 2)
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5)
       canvas.width = width * dpr
       canvas.height = height * dpr
       canvas.style.width = width + "px"
