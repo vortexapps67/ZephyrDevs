@@ -21,6 +21,15 @@ try {
   process.exit(1);
 }
 
+// 1b. Copy main.js to dist/ — it is loaded as a classic <script> (not type="module"),
+// so Vite cannot bundle it. It must be present as a standalone file in dist/.
+const mainJsSrc = path.join(rootDir, 'main.js');
+const mainJsDest = path.join(distDir, 'main.js');
+if (fs.existsSync(mainJsSrc)) {
+  fs.copyFileSync(mainJsSrc, mainJsDest);
+  console.log('Copied main.js to dist/');
+}
+
 // 2. Ignore list for extra assets (already handled by Vite build or not needed)
 const ignore = new Set([
   'dist', 'node_modules', '.git', '.gemini', '.vscode', '.idea',
