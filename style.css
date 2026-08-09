@@ -1,5 +1,5 @@
-/* import Syne (display), Inter (body), and Fira Code (mono) fonts */
-@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500;600&family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+/* import Outfit (display/body), Plus Jakarta Sans (body), and JetBrains Mono (mono) fonts */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;500;600;700&family=Fira+Code:wght@400;500;600&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -35,10 +35,10 @@
   --text-muted: rgba(255, 255, 255, 0.32);
   
   /* Typography */
-  --font-display: 'Syne', sans-serif;
-  --font-title: 'Syne', sans-serif;
-  --font-body: 'Inter', sans-serif;
-  --font-mono: 'Fira Code', 'JetBrains Mono', monospace;
+  --font-display: 'Outfit', sans-serif;
+  --font-title: 'Outfit', sans-serif;
+  --font-body: 'Plus Jakarta Sans', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
   
   --transition-smooth: all 0.45s cubic-bezier(0.22, 1, 0.36, 1);
   --transition-elastic: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1.15);
@@ -234,10 +234,11 @@ body {
   color: var(--text-primary);
   font-family: var(--font-body);
   overflow-x: hidden;
-  line-height: 1.65;
+  line-height: 1.7;
   position: relative;
-  letter-spacing: -0.005em;
+  letter-spacing: -0.01em;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* Grain Overlay */
@@ -423,9 +424,9 @@ body::after {
 /* Typography styles */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-title);
-  font-weight: 700;
-  letter-spacing: -0.015em;
-  line-height: 1.25;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
   text-transform: none; /* Preserves proper sentence/title casing for premium UX */
 }
 
@@ -1748,7 +1749,7 @@ footer {
 .intro-panel {
   position: fixed;
   inset: 0;
-  background: radial-gradient(circle at center, rgba(245, 158, 11, 0.12) 0%, #050608 70%);
+  background: radial-gradient(circle at center, rgba(163, 230, 53, 0.12) 0%, #050608 70%);
   background-color: #050608;
   z-index: 10001;
   transition: transform 1.2s cubic-bezier(0.76, 0, 0.24, 1);
@@ -1927,21 +1928,28 @@ body.loading-active {
 }
 
 /* Entrance Animations */
-.reveal {
-  opacity: 1 !important;
-  transform: none !important;
-  transition: none !important;
+.reveal, .bento-reveal {
+  opacity: 0;
+  transform: perspective(1000px) rotateX(12deg) translateY(45px) translateZ(-40px);
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
 }
 
-.reveal.reveal-left,
-.reveal.reveal-right,
+.reveal.reveal-left {
+  transform: perspective(1000px) rotateY(-10deg) translateX(-45px) translateZ(-40px);
+}
+
+.reveal.reveal-right {
+  transform: perspective(1000px) rotateY(10deg) translateX(45px) translateZ(-40px);
+}
+
 .reveal.reveal-scale {
-  transform: none !important;
+  transform: perspective(1000px) scale(0.9) translateZ(-40px);
 }
 
-.reveal.active {
-  opacity: 1 !important;
-  transform: none !important;
+.reveal.active, .bento-reveal.active {
+  opacity: 1;
+  transform: perspective(1000px) rotateX(0deg) rotateY(0deg) translateX(0) translateY(0) translateZ(0) scale(1);
 }
 
 /* macOS Genie keyframes */
@@ -5456,28 +5464,12 @@ section.section-v2 {
   backface-visibility: hidden;
 }
 
-/* ── Remove Scroll Reveal & Heavy Background Animations ────────────────── */
-.reveal,
-.bento-reveal,
-.reveal-scale,
-.reveal-left,
-.reveal-right,
-[data-reveal] {
-  opacity: 1 !important;
-  transform: none !important;
-  transition: none !important;
-  animation: none !important;
-}
-
+/* ── Re-enable Scroll Reveal & Background Animations ── */
 #background-canvas {
-  display: none !important;
+  display: block;
 }
 
-.mesh-orb {
-  animation: none !important;
-}
-
-/* Clean, subtle micro-animations for hover interactions only */
+/* Clean, subtle micro-animations for hover interactions */
 .btn-gold,
 .btn-ghost,
 .project-row,
@@ -5485,25 +5477,25 @@ section.section-v2 {
 .team-card-v2,
 .testi-card,
 .footer-social-v2 {
-  transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1), background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease !important;
+  transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1), background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
 }
 
 .btn-gold:hover {
-  transform: translateY(-2px) !important;
+  transform: translateY(-2px);
 }
 
 .btn-ghost:hover {
-  transform: translateY(-2px) !important;
+  transform: translateY(-2px);
 }
 
-.project-row:hover {
-  transform: translateX(4px) !important;
+/* Interactive 3D hover/tilt base settings */
+.project-row, .service-card-v2, .team-card-v2, .testi-card {
+  transform-style: preserve-3d;
 }
 
-.service-card-v2:hover,
-.team-card-v2:hover,
-.testi-card:hover {
-  transform: translateY(-3px) !important;
+.project-row:hover, .service-card-v2:hover, .team-card-v2:hover, .testi-card:hover {
+  box-shadow: 0 15px 35px rgba(163, 230, 53, 0.15);
+  border-color: rgba(163, 230, 53, 0.4);
 }
 
 

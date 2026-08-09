@@ -1,6 +1,51 @@
-document.addEventListener('DOMContentLoaded', () => {
+// Global State
+console.log('Zephyr main.js evaluating... readyState:', document.readyState);
+let dbState = {
+  maintenance: false,
+  announcement: { active: false, text: '' },
+  team: {},
+  password: 'admin00', // Default fallback
+  loadingText: 'We Levlled Up.',
+  customConfig: null,
+  themeAccent: 'lime',
+  activityLogs: [],
+  leads: [],
+  analytics: {
+    visitors: 1248,
+    pageviews: 4892,
+    weeklyData: [420, 580, 490, 680, 810, 740, 930]
+  }
+};
+
+// Safe Storage Helpers to prevent SecurityExceptions in sandbox/private browsing environments
+const safeStorage = {
+  getItem: (key) => {
+    try { return localStorage.getItem(key); } catch (e) { return null; }
+  },
+  setItem: (key, val) => {
+    try { localStorage.setItem(key, val); } catch (e) {}
+  },
+  removeItem: (key) => {
+    try { localStorage.removeItem(key); } catch (e) {}
+  }
+};
+
+const safeSessionStorage = {
+  getItem: (key) => {
+    try { return sessionStorage.getItem(key); } catch (e) { return null; }
+  },
+  setItem: (key, val) => {
+    try { sessionStorage.setItem(key, val); } catch (e) {}
+  },
+  removeItem: (key) => {
+    try { sessionStorage.removeItem(key); } catch (e) {}
+  }
+};
+
+function initAll() {
+  console.log('initAll executing...');
   // Apply saved theme accent color immediately
-  applyThemeAccent(localStorage.getItem('zephyr_accent') || 'amber');
+  applyThemeAccent(safeStorage.getItem('zephyr_accent') || 'lime');
 
   // Real-time Patna Studio Clock
   initPatnaClock();
@@ -43,7 +88,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Email Privacy Protection (Obfuscation)
   initEmailObfuscation();
-});
+
+  // Initialize WebGL shader background
+  initCanvasBackground();
+
+  // Initialize Interactive 3D Card Tilt
+  init3DTilt();
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initAll);
+} else {
+  initAll();
+}
+
 
 /* =========================================================================
    1. Interactive Live Canvas Background & GPU Spotlight Glow
@@ -52,220 +110,443 @@ function initCanvasBackground() {
   const canvas = document.getElementById('background-canvas');
   if (!canvas) return;
 
-  // Disable canvas animation loop on mobile for maximum scroll optimization
-  if (window.innerWidth < 768) {
-    canvas.style.display = 'none';
-    const glow = document.getElementById('flashlight-glow');
-    if (glow) glow.style.display = 'none';
+  const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+  if (!gl) {
+    console.error('WebGL1 not supported in this browser.');
     return;
   }
 
-  const ctx = canvas.getContext('2d');
-  let particles = [];
-  let ripples = [];
-  let width = (canvas.width = window.innerWidth);
-  let height = (canvas.height = window.innerHeight);
-
-  function resolveColor(colorStr) {
-    if (!colorStr) return '#ffffff';
-    if (colorStr.startsWith('var(')) {
-      const varName = colorStr.match(/var\(([^)]+)\)/)[1];
-      return getComputedStyle(document.documentElement).getPropertyValue(varName).trim() || '#ffffff';
+  // Vertex Shader Source
+  const vsSource = `
+    attribute vec2 position;
+    void main() {
+      gl_Position = vec4(position, 0.0, 1.0);
     }
-    return colorStr;
+  `;
+
+  // Fragment Shader Source
+  const fsSource = `
+#ifdef GL_FRAGMENT_PRECISION_HIGH
+precision highp float;
+#else
+precision mediump float;
+#endif
+
+uniform vec3 u_colors[8];
+// Seven packed vectors + eight colour vectors = 15 fragment uniform vectors,
+// one below WebGL1's guaranteed minimum. Macros preserve the public u_* API.
+uniform vec4 u_scene;      // resolution.xy, time, colour count
+uniform vec4 u_shape;      // scale, intensity, paramA, warp
+uniform vec4 u_surface;    // detail, contrast, brightness, saturation
+uniform vec4 u_finish;     // hue, vignette, blur, grain
+uniform vec4 u_transform;  // seed, rotation, drift, OKLab toggle
+uniform vec4 u_space;      // offset.xy, pointer.xy
+uniform vec4 u_cursor;
+
+#define u_resolution u_scene.xy
+#define u_time u_scene.z
+#define u_colorCount u_scene.w
+#define u_scale u_shape.x
+#define u_intensity u_shape.y
+#define u_paramA u_shape.z
+#define u_warp u_shape.w
+#define u_detail u_surface.x
+#define u_contrast u_surface.y
+#define u_brightness u_surface.z
+#define u_saturation u_surface.w
+#define u_hue u_finish.x
+#define u_vignette u_finish.y
+#define u_blur u_finish.z
+#define u_grain u_finish.w
+#ifdef GL_FRAGMENT_PRECISION_HIGH
+#define u_seed u_transform.x
+#else
+// Keep hash inputs inside mediump's guaranteed ±2^14 range.
+#define u_seed mod(u_transform.x, 31.0)
+#endif
+#define u_rotate u_transform.y
+#define u_drift u_transform.z
+#define u_oklab u_transform.w
+#define u_offset u_space.xy
+#define u_mouse u_space.zw
+#define u_cursorPresence u_cursor.x
+#define u_cursorEffect u_cursor.y
+#define u_cursorStrength u_cursor.z
+#define u_cursorRadius u_cursor.w
+
+float hash21(vec2 p) {
+#ifndef GL_FRAGMENT_PRECISION_HIGH
+  p = mod(p, 31.0);
+#endif
+  p = fract(p * vec2(234.34, 435.345));
+  p += dot(p, p + 34.23);
+  return fract(p.x * p.y);
+}
+
+// Even, un-structured white noise for film grain (Dave Hoskins hash12). The
+// multiply hash above is fine for value noise but shows a faint axis-aligned
+// mesh at integer fragment coords, which reads as a net over flat areas.
+float grainHash(vec2 p) {
+  vec3 p3 = fract(vec3(p.xyx) * 0.1031);
+  p3 += dot(p3, p3.yzx + 33.33);
+  return fract((p3.x + p3.y) * p3.z);
+}
+
+vec2 hash22(vec2 p) {
+#ifndef GL_FRAGMENT_PRECISION_HIGH
+  p = mod(p, 31.0);
+#endif
+  float n = sin(dot(p, vec2(41.0, 289.0)));
+  return fract(vec2(15731.743, 7892.321) * n);
+}
+
+float noise(vec2 p) {
+  vec2 i = floor(p);
+  vec2 f = fract(p);
+  vec2 u = f * f * (3.0 - 2.0 * f);
+  return mix(
+    mix(hash21(i), hash21(i + vec2(1.0, 0.0)), u.x),
+    mix(hash21(i + vec2(0.0, 1.0)), hash21(i + vec2(1.0, 1.0)), u.x),
+    u.y);
+}
+
+float fbm(vec2 p) {
+  float v = 0.0;
+  float a = 0.5;
+  for (int i = 0; i < 5; i++) {
+    v += a * noise(p);
+    p = p * 2.03 + vec2(17.0, 9.2);
+    a *= 0.5;
   }
+  return v;
+}
 
-  // Lean, ultra-optimized particle layers for 60+ FPS performance
-  const layers = [
-    { count: 6, sizeRange: [4, 6], speedRange: [0.05, 0.1], opacity: 0.25, blur: true, colors: ['#a3e635'] },
-    { count: 12, sizeRange: [2, 3], speedRange: [0.1, 0.2], opacity: 0.5, blur: false, colors: ['#ffffff', '#a3e635'] }
-  ];
+// --- OKLab colour mixing (perceptual), gated by u_oklab -----------------------
+vec3 srgbToLinear(vec3 c) {
+  return mix(c / 12.92, pow((c + 0.055) / 1.055, vec3(2.4)),
+    step(0.04045, c));
+}
+vec3 linearToSrgb(vec3 c) {
+  // max() guards the sRGB branch: out-of-gamut OKLab interpolations can send a
+  // channel negative, and pow(negative, …) is NaN which mix()/step() would
+  // then propagate. The linear branch clips such channels to 0 downstream.
+  return mix(c * 12.92, 1.055 * pow(max(c, vec3(0.0)), vec3(1.0 / 2.4)) - 0.055,
+    step(0.0031308, c));
+}
+vec3 linToOklab(vec3 c) {
+  float l = 0.4122214708 * c.r + 0.5363325363 * c.g + 0.0514459929 * c.b;
+  float m = 0.2119034982 * c.r + 0.6806995451 * c.g + 0.1073969566 * c.b;
+  float s = 0.0883024619 * c.r + 0.2817188376 * c.g + 0.6299787005 * c.b;
+  l = pow(max(l, 0.0), 1.0 / 3.0);
+  m = pow(max(m, 0.0), 1.0 / 3.0);
+  s = pow(max(s, 0.0), 1.0 / 3.0);
+  return vec3(
+    0.2104542553 * l + 0.7936177850 * m - 0.0040720468 * s,
+    1.9779984951 * l - 2.4285922050 * m + 0.4505937099 * s,
+    0.0259040371 * l + 0.7827717662 * m - 0.8086757660 * s);
+}
+vec3 oklabToLin(vec3 c) {
+  float l = c.x + 0.3963377774 * c.y + 0.2158037573 * c.z;
+  float m = c.x - 0.1055613458 * c.y - 0.0638541728 * c.z;
+  float s = c.x - 0.0894841775 * c.y - 1.2914855480 * c.z;
+  l = l * l * l; m = m * m * m; s = s * s * s;
+  return vec3(
+    4.0767416621 * l - 3.3077115913 * m + 0.2309699292 * s,
+    -1.2684380046 * l + 2.6097574011 * m - 0.3413193965 * s,
+    -0.0041960863 * l - 0.7034186147 * m + 1.7076147010 * s);
+}
+vec3 mixColour(vec3 a, vec3 b, float t) {
+  if (u_oklab > 0.5) {
+    vec3 la = linToOklab(srgbToLinear(a));
+    vec3 lb = linToOklab(srgbToLinear(b));
+    return clamp(linearToSrgb(oklabToLin(mix(la, lb, t))), 0.0, 1.0);
+  }
+  return mix(a, b, t);
+}
 
-  const mouse = { x: null, y: null, radius: 160 };
+// Mix through the recipe colours; x is clamped to 0..1. WebGL1 forbids
+// dynamic uniform indexing in fragment shaders, hence the constant loop.
+vec3 palette(float x) {
+  float n = max(u_colorCount - 1.0, 1.0);
+  float f = clamp(x, 0.0, 1.0) * n;
+  vec3 col = u_colors[0];
+  for (int i = 0; i < 7; i++) {
+    if (float(i) < n)
+      col = mixColour(col, u_colors[i + 1],
+        smoothstep(0.0, 1.0, clamp(f - float(i), 0.0, 1.0)));
+  }
+  return col;
+}
 
-  class Particle {
-    constructor(layerConfig) {
-      this.x = Math.random() * width;
-      this.y = Math.random() * height;
-      
-      const speed = Math.random() * (layerConfig.speedRange[1] - layerConfig.speedRange[0]) + layerConfig.speedRange[0];
-      const angle = Math.random() * Math.PI * 2;
-      this.vx = Math.cos(angle) * speed;
-      this.vy = Math.sin(angle) * speed;
-      
-      this.baseRadius = Math.random() * (layerConfig.sizeRange[1] - layerConfig.sizeRange[0]) + layerConfig.sizeRange[0];
-      this.radius = this.baseRadius;
-      this.opacity = layerConfig.opacity;
-      this.blur = layerConfig.blur;
-      this.colors = layerConfig.colors;
-      this.color = this.colors[Math.floor(Math.random() * this.colors.length)];
-    }
+vec3 hueRotate(vec3 col, float a) {
+  const mat3 toYIQ = mat3(0.299, 0.596, 0.211,
+                          0.587, -0.274, -0.523,
+                          0.114, -0.322, 0.312);
+  const mat3 toRGB = mat3(1.0, 1.0, 1.0,
+                          0.956, -0.272, -1.106,
+                          0.621, -0.647, 1.703);
+  vec3 yiq = toYIQ * col;
+  float ca = cos(a), sa = sin(a);
+  yiq = vec3(yiq.x, yiq.y * ca - yiq.z * sa, yiq.y * sa + yiq.z * ca);
+  return toRGB * yiq;
+}
 
-    update() {
-      // Bounce off boundaries
-      if (this.x < 0 || this.x > width) this.vx = -this.vx;
-      if (this.y < 0 || this.y > height) this.vy = -this.vy;
+vec3 shade(vec2 uv, vec2 p, float t) {
+  vec3 acc = u_colors[0] * 0.15;
+  float total = 0.15;
+  for (int i = 0; i < 8; i++) {
+    if (float(i) >= u_colorCount) break;
+    float fi = float(i);
+    vec2 c = vec2(
+      sin(t * (0.21 + fi * 0.071) + fi * 2.4 + u_seed),
+      cos(t * (0.17 + fi * 0.093) + fi * 1.7)) * (0.45 + u_intensity * 0.35);
+    float w = exp(-dot(p - c, p - c) * 6.0);
+    acc += u_colors[i] * w;
+    total += w;
+  }
+  return acc / total;
+}
 
-      this.x += this.vx;
-      this.y += this.vy;
+void main() {
+  vec2 uv = gl_FragCoord.xy / u_resolution.xy;
+  vec2 screenUv = uv;
+  vec2 p = (gl_FragCoord.xy - 0.5 * u_resolution.xy)
+    / min(u_resolution.x, u_resolution.y);
+  float cursorMask = 0.0;
 
-      // Mouse proximity interaction (O(N) - single pass)
-      if (mouse.x !== null && mouse.y !== null) {
-        const dx = this.x - mouse.x;
-        const dy = this.y - mouse.y;
-        const dist = Math.hypot(dx, dy);
-
-        if (dist < mouse.radius) {
-          const force = (mouse.radius - dist) / mouse.radius;
-          const angle = Math.atan2(dy, dx);
-          this.x += Math.sin(angle) * force * 1.2;
-          this.y -= Math.cos(angle) * force * 1.2;
-        }
+  // Cursor modes 1–3 are local distortions. Push shifts the same screen-space
+  // coordinates before field transforms, so Zoom/Rotate don't change its feel.
+  if (u_cursorPresence > 0.001) {
+    // u_mouse is normalized to -1..1 in canvas space. Convert it to the same
+    // aspect-corrected screen space as p so effects stay under the cursor.
+    vec2 cursor = (0.5 * u_mouse * u_resolution.xy)
+      / min(u_resolution.x, u_resolution.y);
+    vec2 cursorDelta = p - cursor;
+    if (u_cursorEffect < 0.5) {
+      p += cursor * u_cursorPresence * u_cursorStrength * 0.55;
+    } else {
+      float cursorDistance = length(cursorDelta);
+      vec2 cursorDirection = cursorDelta / max(cursorDistance, 0.0001);
+      cursorMask = u_cursorPresence
+        * (1.0 - smoothstep(0.0, u_cursorRadius, cursorDistance));
+      if (u_cursorEffect < 1.5) {
+        p -= cursorDirection * cursorMask * u_cursorStrength * 0.24;
+      } else if (u_cursorEffect < 2.5) {
+        float cursorAngle = cursorMask * u_cursorStrength * 2.2;
+        float cc = cos(cursorAngle), cs = sin(cursorAngle);
+        p = cursor + mat2(cc, -cs, cs, cc) * cursorDelta;
+      } else if (u_cursorEffect < 3.5) {
+        float ripple = sin(
+          cursorDistance / max(u_cursorRadius, 0.001) * 18.0 - u_time * 5.0);
+        p -= cursorDirection * ripple * cursorMask * u_cursorStrength * 0.07;
       }
     }
-
-    draw() {
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-      ctx.globalAlpha = this.opacity;
-      ctx.fillStyle = resolveColor(this.color);
-      ctx.fill();
-    }
   }
 
-  class Ripple {
-    constructor(x, y) {
-      this.x = x;
-      this.y = y;
-      this.currentRadius = 0;
-      this.maxRadius = 200;
-      this.speed = 5;
-      this.opacity = 0.5;
-    }
+  // Keep presets that read uv (rather than p) in the same warped space.
+  uv = p * min(u_resolution.x, u_resolution.y) / u_resolution.xy + 0.5;
+  p *= u_scale;
+  // Field transform: rotate, pan, pointer push, slow drift.
+  if (abs(u_rotate) > 0.0001) {
+    float cr = cos(u_rotate), sr = sin(u_rotate);
+    p = mat2(cr, -sr, sr, cr) * p;
+  }
+  p += u_offset;
+  if (u_drift > 0.0001)
+    p += u_drift * vec2(sin(u_time * 0.31), cos(u_time * 0.23));
+  // Organic domain warp.
+  if (u_warp > 0.0) {
+    p += u_warp * (vec2(
+      fbm(p * u_detail + u_seed),
+      fbm(p * u_detail + vec2(5.2, 1.3))) - 0.5);
+  }
+  // Shade, with an optional soft 5-tap blur.
+  vec3 col;
+  if (u_blur > 0.0) {
+    float e = u_blur;
+    float pe = e * u_scale;
+    vec2 uvE = vec2(e) * min(u_resolution.x, u_resolution.y) / u_resolution.xy;
+    col  = shade(uv, p, u_time) * 0.36;
+    col += shade(uv + vec2(uvE.x, 0.0), p + vec2(pe, 0.0), u_time) * 0.16;
+    col += shade(uv - vec2(uvE.x, 0.0), p - vec2(pe, 0.0), u_time) * 0.16;
+    col += shade(uv + vec2(0.0, uvE.y), p + vec2(0.0, pe), u_time) * 0.16;
+    col += shade(uv - vec2(0.0, uvE.y), p - vec2(0.0, pe), u_time) * 0.16;
+  } else {
+    col = shade(uv, p, u_time);
+  }
+  // Post: contrast, saturation, hue, brightness, vignette, grain.
+  if (abs(u_contrast - 1.0) > 0.0001)
+    col = (col - 0.5) * u_contrast + 0.5;
+  if (abs(u_saturation - 1.0) > 0.0001) {
+    float luma = dot(col, vec3(0.299, 0.587, 0.114));
+    col = mix(vec3(luma), col, u_saturation);
+  }
+  if (abs(u_hue) > 0.0001)
+    col = hueRotate(col, u_hue);
+  if (abs(u_brightness) > 0.0001)
+    col += u_brightness;
+  if (u_vignette > 0.0001) {
+    float vd = length(screenUv - 0.5) * 1.41421356;
+    col *= 1.0 - u_vignette * smoothstep(0.35, 1.0, vd);
+  }
+  if (u_cursorPresence > 0.001 && u_cursorEffect > 3.5)
+    col += (vec3(0.18) + col * 0.12) * cursorMask * u_cursorStrength;
+  if (u_grain > 0.0001)
+    col += (grainHash(
+      gl_FragCoord.xy + vec2(u_seed * 17.0, u_seed * 31.0)) - 0.5) * u_grain;
+  gl_FragColor = vec4(clamp(col, 0.0, 1.0), 1.0);
+}
+  `;
 
-    update() {
-      this.currentRadius += this.speed;
-      this.opacity = 1 - (this.currentRadius / this.maxRadius);
+  // Create & compile shaders, link program
+  function compileShader(source, type) {
+    const shader = gl.createShader(type);
+    gl.shaderSource(shader, source);
+    gl.compileShader(shader);
+    if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+      console.error('Shader compilation error:', gl.getShaderInfoLog(shader));
+      gl.deleteShader(shader);
+      return null;
     }
-
-    draw() {
-      if (this.opacity <= 0) return;
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, this.currentRadius, 0, Math.PI * 2);
-      ctx.strokeStyle = 'rgba(163, 230, 53, ' + (this.opacity * 0.4) + ')';
-      ctx.lineWidth = 1;
-      ctx.stroke();
-    }
+    return shader;
   }
 
-  function setup() {
-    particles = [];
-    ripples = [];
-    layers.forEach(layerConfig => {
-      for (let i = 0; i < layerConfig.count; i++) {
-        particles.push(new Particle(layerConfig));
+  const vs = compileShader(vsSource, gl.VERTEX_SHADER);
+  const fs = compileShader(fsSource, gl.FRAGMENT_SHADER);
+  if (!vs || !fs) return;
+
+  const program = gl.createProgram();
+  gl.attachShader(program, vs);
+  gl.attachShader(program, fs);
+  gl.linkProgram(program);
+  if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+    console.error('Program linking error:', gl.getProgramInfoLog(program));
+    return;
+  }
+  gl.useProgram(program);
+
+  // Set up fullscreen triangle
+  const positionBuffer = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+  const positions = new Float32Array([
+    -1.0, -1.0,
+     3.0, -1.0,
+    -1.0,  3.0
+  ]);
+  gl.bufferData(gl.ARRAY_BUFFER, positions, gl.STATIC_DRAW);
+
+  const positionLoc = gl.getAttribLocation(program, 'position');
+  gl.enableVertexAttribArray(positionLoc);
+  gl.vertexAttribPointer(positionLoc, 2, gl.FLOAT, false, 0, 0);
+
+  // Uniform locations
+  const uColorsLoc = gl.getUniformLocation(program, 'u_colors');
+  const uSceneLoc = gl.getUniformLocation(program, 'u_scene');
+  const uShapeLoc = gl.getUniformLocation(program, 'u_shape');
+  const uSurfaceLoc = gl.getUniformLocation(program, 'u_surface');
+  const uFinishLoc = gl.getUniformLocation(program, 'u_finish');
+  const uTransformLoc = gl.getUniformLocation(program, 'u_transform');
+  const uSpaceLoc = gl.getUniformLocation(program, 'u_space');
+  const uCursorLoc = gl.getUniformLocation(program, 'u_cursor');
+
+  // Colors mapping (low -> high, exact colors)
+  const colorData = new Float32Array([
+    0.012, 0.071, 0.055,  // #03120E
+    0.055, 0.486, 0.353,  // #0E7C5A
+    0.486, 0.898, 0.467,  // #7CE577
+    0.957, 1.000, 0.780,  // #F4FFC7
+    0.0, 0.0, 0.0,
+    0.0, 0.0, 0.0,
+    0.0, 0.0, 0.0,
+    0.0, 0.0, 0.0
+  ]);
+
+  // Pointer tracking
+  let pointerX = 0;
+  let pointerY = 0;
+  
+  function updatePointer(e) {
+    pointerX = (e.clientX / window.innerWidth) * 2 - 1;
+    pointerY = -(e.clientY / window.innerHeight) * 2 + 1;
+  }
+  
+  window.addEventListener('mousemove', updatePointer);
+  window.addEventListener('touchmove', (e) => {
+    if (e.touches.length > 0) {
+      updatePointer(e.touches[0]);
+    }
+  });
+
+  // Handle Resize
+  function handleResize() {
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = width * dpr;
+    canvas.height = height * dpr;
+    canvas.style.width = width + 'px';
+    canvas.style.height = height + 'px';
+    gl.viewport(0, 0, canvas.width, canvas.height);
+  }
+  
+  window.addEventListener('resize', handleResize);
+  handleResize();
+
+  // Animation Loop variables
+  let animationId = null;
+  const startTime = performance.now();
+
+  function render(now) {
+    if (document.hidden) return;
+
+    const seconds = (now - startTime) * 0.001;
+
+    gl.clearColor(0, 0, 0, 1);
+    gl.clear(gl.COLOR_BUFFER_BIT);
+
+    // Bind buffer
+    gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+    gl.vertexAttribPointer(positionLoc, 2, gl.FLOAT, false, 0, 0);
+
+    // Feed uniforms
+    gl.uniform3fv(uColorsLoc, colorData);
+    gl.uniform4f(uSceneLoc, canvas.width, canvas.height, seconds * 0.73, 4.0);
+    gl.uniform4f(uShapeLoc, 1.16, 0.34, 0.50, 0.00);
+    gl.uniform4f(uSurfaceLoc, 2.40, 1.16, 0.00, 1.00);
+    gl.uniform4f(uFinishLoc, 0.00, 0.00, 0.00, 0.09);
+    gl.uniform4f(uTransformLoc, 1453.0, 0.00, 0.00, 0.0);
+    gl.uniform4f(uSpaceLoc, 0.00, 0.00, pointerX, pointerY);
+    gl.uniform4f(uCursorLoc, 0.0, 2.0, 0.65, 0.46); // Cursor off (presence 0.0)
+
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
+
+    animationId = requestAnimationFrame(render);
+  }
+
+  // Start loop
+  animationId = requestAnimationFrame(render);
+
+  // Tab hidden pause handling
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      if (animationId) {
+        cancelAnimationFrame(animationId);
+        animationId = null;
       }
-    });
-  }
-
-  let isScrolling = false;
-  let scrollTimeout;
-  window.addEventListener('scroll', () => {
-    isScrolling = true;
-    clearTimeout(scrollTimeout);
-    scrollTimeout = setTimeout(() => { isScrolling = false; }, 150);
-  }, { passive: true });
-
-  function animate() {
-    // Skip heavy particle canvas re-draws during rapid touch/wheel scrolling for 60fps smooth scrolling
-    if (!isScrolling) {
-      ctx.clearRect(0, 0, width, height);
-
-      // Mouse-to-particle constellation lines (O(N) linear time complexity)
-      if (mouse.x !== null && mouse.y !== null) {
-        ctx.strokeStyle = 'rgba(163, 230, 53, 0.2)';
-        ctx.lineWidth = 0.8;
-        for (let i = 0; i < particles.length; i++) {
-          const p = particles[i];
-          const dx = p.x - mouse.x;
-          const dy = p.y - mouse.y;
-          if (Math.hypot(dx, dy) < 130) {
-            ctx.beginPath();
-            ctx.moveTo(p.x, p.y);
-            ctx.lineTo(mouse.x, mouse.y);
-            ctx.stroke();
-          }
-        }
+    } else {
+      if (!animationId) {
+        animationId = requestAnimationFrame(render);
       }
-
-      // Update and draw ripples
-      ripples = ripples.filter(r => r.currentRadius < r.maxRadius);
-      ripples.forEach(r => {
-        r.update();
-        r.draw();
-      });
-
-      // Update and draw particles
-      particles.forEach(p => {
-        p.update();
-        p.draw();
-      });
     }
+  });
 
-    requestAnimationFrame(animate);
-  }
-
-  // Mouse move tracks coordinates & spotlight transform (compositor GPU accelerated)
+  // Track optional flashlight transform position in CSS
+  const glow = document.getElementById('flashlight-glow');
   window.addEventListener('mousemove', (e) => {
-    mouse.x = e.clientX;
-    mouse.y = e.clientY;
-    
     if (glow) {
       glow.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0) translate3d(-50%, -50%, 0)`;
     }
   });
-
-  window.addEventListener('mouseleave', () => {
-    mouse.x = null;
-    mouse.y = null;
-  });
-
-  // Spawn ripple on click
-  window.addEventListener('click', (e) => {
-    if (e.target.closest('button') || e.target.closest('a') || e.target.closest('.nav-pill')) return;
-    ripples.push(new Ripple(e.clientX, e.clientY));
-  });
-
-  window.addEventListener('touchmove', (e) => {
-    if (e.touches.length > 0) {
-      const touchX = e.touches[0].clientX;
-      const touchY = e.touches[0].clientY;
-      mouse.x = touchX;
-      mouse.y = touchY;
-      if (glow) {
-        glow.style.transform = `translate3d(${touchX}px, ${touchY}px, 0) translate3d(-50%, -50%, 0)`;
-      }
-    }
-  });
-
-  window.addEventListener('touchend', () => {
-    mouse.x = null;
-    mouse.y = null;
-  });
-
-  // Resize throttle
-  let resizeTimeout;
-  window.addEventListener('resize', () => {
-    clearTimeout(resizeTimeout);
-    resizeTimeout = setTimeout(() => {
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
-      setup();
-    }, 200);
-  });
-
-  setup();
-  animate();
 }
 
 /* =========================================================================
@@ -302,7 +583,8 @@ function initTopPillNav() {
 
   navLinks.forEach((link) => {
     const pageAttr = link.getAttribute('onclick');
-    const page = pageAttr ? pageAttr.match(/'([^']+)'/)[1] : '';
+    const match = pageAttr ? pageAttr.match(/'([^']+)'/) : null;
+    const page = match ? match[1] : '';
     if (currentPath === page) {
       link.classList.add('active');
       updateIndicator(link);
@@ -314,7 +596,8 @@ function initTopPillNav() {
 
   drawerLinks.forEach((link) => {
     const pageAttr = link.getAttribute('onclick');
-    const page = pageAttr ? pageAttr.match(/'([^']+)'/)[1] : '';
+    const match = pageAttr ? pageAttr.match(/'([^']+)'/) : null;
+    const page = match ? match[1] : '';
     if (currentPath === page) {
       link.classList.add('active');
     } else {
@@ -341,10 +624,37 @@ function initTopPillNav() {
    3. Scroll Reveal Transition Observer
    ========================================================================= */
 function initScrollReveal() {
-  // Scroll reveal animations disabled per user request
-  document.querySelectorAll('.reveal, .bento-reveal, .nav-pill-wrapper').forEach((element) => {
-    element.classList.add('active');
+  const elements = document.querySelectorAll('.reveal, .bento-reveal');
+  
+  if (typeof IntersectionObserver === 'undefined') {
+    elements.forEach(el => el.classList.add('active'));
+    return;
+  }
+  
+  const observerOptions = {
+    root: null,
+    rootMargin: '0px 0px -8% 0px',
+    threshold: 0.1
+  };
+
+  const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('active');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+
+  elements.forEach(el => {
+    el.classList.remove('active');
+    observer.observe(el);
   });
+
+  const navWrapper = document.querySelector('.nav-pill-wrapper');
+  if (navWrapper) {
+    navWrapper.classList.add('active');
+  }
 }
 
 /* =========================================================================
@@ -552,7 +862,7 @@ function saveLeadLocally(leadData) {
   };
 
   dbState.leads.unshift(newLead); // Add new inquiries at the top
-  localStorage.setItem('zephyr_leads', JSON.stringify(dbState.leads));
+  safeStorage.setItem('zephyr_leads', JSON.stringify(dbState.leads));
   
   // Try sync with Firebase if ready
   firebaseCall('saveLead', newLead).catch(err => console.warn('Firebase saveLead error: ', err));
@@ -791,6 +1101,7 @@ window.navigateTo = function (page) {
 
 // Handle route pre-fills & cinematic intro gate
 function handlePageLoad() {
+  console.log('handlePageLoad executing... gate:', !!document.getElementById('intro-gate'), 'taglineEl:', !!document.getElementById('intro-tagline'));
   const urlParams = new URLSearchParams(window.location.search);
   const selectedPlan = urlParams.get('plan');
   if (selectedPlan) {
@@ -893,10 +1204,10 @@ function handlePageLoad() {
   document.body.style.transition = 'opacity 0.25s ease';
 }
 
-if (document.readyState === 'complete') {
+if (document.readyState !== 'loading') {
   handlePageLoad();
 } else {
-  window.addEventListener('load', handlePageLoad);
+  document.addEventListener('DOMContentLoaded', handlePageLoad);
 }
 
 
@@ -947,24 +1258,6 @@ function initDevreonBackdrop() {
 /* =========================================================================
    10. Firebase Administration & Maintenance Mode
    ========================================================================= */
-
-// Global State
-let dbState = {
-  maintenance: false,
-  announcement: { active: false, text: '' },
-  team: {},
-  password: 'admin00', // Default fallback
-  loadingText: 'We Levlled Up.',
-  customConfig: null,
-  themeAccent: 'lime',
-  activityLogs: [],
-  leads: [],
-  analytics: {
-    visitors: 1248,
-    pageviews: 4892,
-    weeklyData: [420, 580, 490, 680, 810, 740, 930]
-  }
-};
 
 let firebaseCallbacks = {};
 
@@ -1137,7 +1430,7 @@ function handleLoadingTextUpdate(val) {
 // ---------------------- Maintenance Mode ----------------------
 function handleMaintenanceUpdate(active) {
   let screen = document.getElementById('maintenance-screen');
-  const isAdmin = sessionStorage.getItem('zephyr_admin') === 'true';
+  const isAdmin = safeSessionStorage.getItem('zephyr_admin') === 'true';
 
   if (active && !isAdmin) {
     if (!screen) {
@@ -1400,21 +1693,21 @@ function injectAdminModals() {
               <h4 style="color:#fff; margin-bottom:15px; font-size:0.9rem; font-family:var(--font-mono); text-transform:uppercase; color: var(--neon-cyan);">global theme styling</h4>
               <label style="display:block; margin-bottom:8px; font-family:var(--font-mono); font-size:0.75rem; text-transform:uppercase; color:var(--text-secondary);">Accent Color Theme</label>
               <div class="accent-colors-grid">
-                <button class="accent-color-btn" data-accent="amber" onclick="updateThemeSettings('amber')">
-                  <span class="color-dot-indicator" style="background: #f59e0b;"></span>
-                  Amber
-                </button>
                 <button class="accent-color-btn" data-accent="lime" onclick="updateThemeSettings('lime')">
-                  <span class="color-dot-indicator" style="background: #10b981;"></span>
-                  Emerald
+                  <span class="color-dot-indicator" style="background: #a3e635;"></span>
+                  Cyber Lime
+                </button>
+                <button class="accent-color-btn" data-accent="amber" onclick="updateThemeSettings('amber')">
+                  <span class="color-dot-indicator" style="background: #c5ff1a;"></span>
+                  Neon Volt
                 </button>
                 <button class="accent-color-btn" data-accent="violet" onclick="updateThemeSettings('violet')">
-                  <span class="color-dot-indicator" style="background: #f97316;"></span>
-                  Orange
+                  <span class="color-dot-indicator" style="background: #ccff00;"></span>
+                  Acid Green
                 </button>
                 <button class="accent-color-btn" data-accent="cyan" onclick="updateThemeSettings('cyan')">
-                  <span class="color-dot-indicator" style="background: #3b82f6;"></span>
-                  Blue
+                  <span class="color-dot-indicator" style="background: #10b981;"></span>
+                  Emerald Mint
                 </button>
               </div>
             </div>
@@ -1596,7 +1889,7 @@ function injectAdminModals() {
 // ---------------------- Leads Management Database & Renderers ----------------------
 // Load leads from LocalStorage or seed with premium mock templates
 (function initLeadsDatabase() {
-  const savedLeads = localStorage.getItem('zephyr_leads');
+  const savedLeads = safeStorage.getItem('zephyr_leads');
   if (savedLeads) {
     dbState.leads = JSON.parse(savedLeads);
   } else {
@@ -1628,7 +1921,7 @@ function injectAdminModals() {
         status: 'Contacted'
       }
     ];
-    localStorage.setItem('zephyr_leads', JSON.stringify(dbState.leads));
+    safeStorage.setItem('zephyr_leads', JSON.stringify(dbState.leads));
   }
 })();
 
@@ -1703,7 +1996,7 @@ window.updateLeadStatus = function(leadId, newStatus) {
   const leadIndex = dbState.leads.findIndex(l => l.id === leadId);
   if (leadIndex !== -1) {
     dbState.leads[leadIndex].status = newStatus;
-    localStorage.setItem('zephyr_leads', JSON.stringify(dbState.leads));
+    safeStorage.setItem('zephyr_leads', JSON.stringify(dbState.leads));
     renderAdminLeadsList();
     firebaseCall('updateLeadStatus', { id: leadId, status: newStatus }).catch(err => console.warn(err));
   }
@@ -1712,7 +2005,7 @@ window.updateLeadStatus = function(leadId, newStatus) {
 window.deleteLead = function(leadId) {
   if (confirm('Are you sure you want to delete this inquiry?')) {
     dbState.leads = dbState.leads.filter(l => l.id !== leadId);
-    localStorage.setItem('zephyr_leads', JSON.stringify(dbState.leads));
+    safeStorage.setItem('zephyr_leads', JSON.stringify(dbState.leads));
     renderAdminLeadsList();
     firebaseCall('deleteLead', leadId).catch(err => console.warn(err));
   }
@@ -1799,7 +2092,7 @@ window.renderAdminAnalytics = function() {
 window.openAdminPanel = function (e) {
   if (e) e.preventDefault();
   
-  if (sessionStorage.getItem('zephyr_admin') === 'true') {
+  if (safeSessionStorage.getItem('zephyr_admin') === 'true') {
     showAdminDashboard();
   } else {
     showAdminPasswordModal();
@@ -1848,7 +2141,7 @@ window.submitAdminPassword = function () {
   const actualPassword = dbState.password || 'admin00';
   
   if (pass === actualPassword) {
-    sessionStorage.setItem('zephyr_admin', 'true');
+    safeSessionStorage.setItem('zephyr_admin', 'true');
     closeAdminPasswordModal();
     showAdminDashboard();
   } else {
@@ -1879,7 +2172,7 @@ function showAdminDashboard() {
     if (newPwInput) newPwInput.value = '';
 
     // Set active visual color accent button states
-    const activeAccent = localStorage.getItem('zephyr_accent') || 'amber';
+    const activeAccent = safeStorage.getItem('zephyr_accent') || 'lime';
     document.querySelectorAll('.accent-color-btn').forEach(btn => {
       if (btn.getAttribute('data-accent') === activeAccent) {
         btn.classList.add('active');
@@ -1919,7 +2212,7 @@ window.closeAdminDashboard = function () {
     dashboard.classList.remove('active');
     
     // Clear admin auth state so it asks for password next time
-    sessionStorage.removeItem('zephyr_admin');
+    safeSessionStorage.removeItem('zephyr_admin');
     
     // Clear simulation ticks
     if (window.liveAnalyticsInterval) {
@@ -2234,41 +2527,41 @@ function applyThemeAccent(theme) {
   const root = document.documentElement;
   
   const themes = {
-    amber: {
-      cyan: '#f59e0b',
-      cyanGlow: 'rgba(245, 158, 11, 0.18)',
-      violet: '#f97316',
-      violetGlow: 'rgba(249, 115, 22, 0.15)',
-      green: '#10b981',
-      greenGlow: 'rgba(16, 185, 129, 0.15)'
-    },
     lime: {
-      cyan: '#10b981',
-      cyanGlow: 'rgba(16, 185, 129, 0.18)',
-      violet: '#84cc16',
-      violetGlow: 'rgba(132, 204, 22, 0.15)',
-      green: '#06b6d4',
-      greenGlow: 'rgba(6, 182, 212, 0.15)'
+      cyan: '#a3e635',
+      cyanGlow: 'rgba(163, 230, 53, 0.35)',
+      violet: '#bef264',
+      violetGlow: 'rgba(190, 242, 100, 0.25)',
+      green: '#ccff00',
+      greenGlow: 'rgba(204, 255, 0, 0.3)'
+    },
+    amber: {
+      cyan: '#c5ff1a',
+      cyanGlow: 'rgba(197, 255, 26, 0.35)',
+      violet: '#a3e635',
+      violetGlow: 'rgba(163, 230, 53, 0.28)',
+      green: '#bef264',
+      greenGlow: 'rgba(190, 242, 100, 0.25)'
     },
     violet: {
-      cyan: '#8b5cf6',
-      cyanGlow: 'rgba(139, 92, 246, 0.18)',
-      violet: '#ec4899',
-      violetGlow: 'rgba(236, 72, 153, 0.15)',
-      green: '#f43f5e',
-      greenGlow: 'rgba(244, 63, 94, 0.15)'
+      cyan: '#ccff00',
+      cyanGlow: 'rgba(204, 255, 0, 0.35)',
+      violet: '#a3e635',
+      violetGlow: 'rgba(163, 230, 53, 0.25)',
+      green: '#84cc16',
+      greenGlow: 'rgba(132, 204, 22, 0.2)'
     },
     cyan: {
-      cyan: '#3b82f6',
-      cyanGlow: 'rgba(59, 130, 246, 0.18)',
-      violet: '#0ea5e9',
-      violetGlow: 'rgba(14, 165, 233, 0.15)',
-      green: '#10b981',
-      greenGlow: 'rgba(16, 185, 129, 0.15)'
+      cyan: '#10b981',
+      cyanGlow: 'rgba(16, 185, 129, 0.35)',
+      violet: '#bef264',
+      violetGlow: 'rgba(190, 242, 100, 0.25)',
+      green: '#84cc16',
+      greenGlow: 'rgba(132, 204, 22, 0.2)'
     }
   };
 
-  const selected = themes[theme] || themes.amber;
+  const selected = themes[theme] || themes.lime;
   root.style.setProperty('--neon-cyan', selected.cyan);
   root.style.setProperty('--neon-cyan-glow', selected.cyanGlow);
   root.style.setProperty('--neon-violet', selected.violet);
@@ -2276,7 +2569,7 @@ function applyThemeAccent(theme) {
   root.style.setProperty('--neon-green', selected.green);
   root.style.setProperty('--neon-green-glow', selected.greenGlow);
   
-  localStorage.setItem('zephyr_accent', theme);
+  safeStorage.setItem('zephyr_accent', theme);
   dbState.themeAccent = theme;
 
   document.querySelectorAll('.accent-color-btn').forEach(btn => {
@@ -2409,7 +2702,7 @@ function initChatbot() {
             <div class="chatbot-status">Online</div>
           </div>
         </div>
-        <button class="chatbot-close" id="chat-close">&times;</button>
+        <button class="chatbot-close" id="chat-close" aria-label="Close Chat">&times;</button>
       </div>
 
       <div class="chatbot-messages" id="chat-messages-area">
@@ -2428,7 +2721,7 @@ function initChatbot() {
 
       <div class="chatbot-input-area">
         <input type="text" class="chatbot-input" id="chat-user-input" placeholder="Type a message...">
-        <button class="chatbot-send" id="chat-send-btn">
+        <button class="chatbot-send" id="chat-send-btn" aria-label="Send Message">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
         </button>
       </div>
@@ -2534,7 +2827,7 @@ function initThemeToggle() {
     navPill.appendChild(btn);
   }
 
-  const currentTheme = localStorage.getItem('theme') || 'dark';
+  const currentTheme = safeStorage.getItem('theme') || 'dark';
   if (currentTheme === 'light') {
     document.body.classList.add('light-theme');
     btn.querySelector('.sun-icon').style.display = 'none';
@@ -2543,7 +2836,7 @@ function initThemeToggle() {
 
   btn.addEventListener('click', () => {
     const isLight = document.body.classList.toggle('light-theme');
-    localStorage.setItem('theme', isLight ? 'light' : 'dark');
+    safeStorage.setItem('theme', isLight ? 'light' : 'dark');
     
     if (isLight) {
       btn.querySelector('.sun-icon').style.display = 'none';
@@ -2684,7 +2977,7 @@ function initEmailObfuscation() {
 
 // 1. Live Page View Tracker (Runs automatically on load)
 (function trackLiveViews() {
-  let stats = localStorage.getItem('zephyr_analytics');
+  let stats = safeStorage.getItem('zephyr_analytics');
   if (stats) {
     stats = JSON.parse(stats);
   } else {
@@ -2699,13 +2992,13 @@ function initEmailObfuscation() {
   stats.pageviews += 1;
   
   // Check if unique visitor session
-  if (!sessionStorage.getItem('zephyr_visitor_tracked')) {
+  if (!safeSessionStorage.getItem('zephyr_visitor_tracked')) {
     stats.visitors += 1;
-    sessionStorage.setItem('zephyr_visitor_tracked', 'true');
+    safeSessionStorage.setItem('zephyr_visitor_tracked', 'true');
   }
   
   dbState.analytics = stats;
-  localStorage.setItem('zephyr_analytics', JSON.stringify(stats));
+  safeStorage.setItem('zephyr_analytics', JSON.stringify(stats));
 })();
 
 // 2. Live simulated traffic increments (Runs when dashboard is open)
@@ -2728,7 +3021,7 @@ window.startLiveAnalyticsSimulation = function() {
     dbState.analytics.weeklyData[lastIdx] += Math.floor(Math.random() * 3) + 1;
     
     // Persist
-    localStorage.setItem('zephyr_analytics', JSON.stringify(dbState.analytics));
+    safeStorage.setItem('zephyr_analytics', JSON.stringify(dbState.analytics));
     
     // Re-render if Analytics tab is active
     const tab = document.getElementById('tab-analytics');
@@ -2824,7 +3117,7 @@ window.saveManualLead = function() {
   dbState.leads.unshift(newLead);
   
   // Persist
-  localStorage.setItem('zephyr_leads', JSON.stringify(dbState.leads));
+  safeStorage.setItem('zephyr_leads', JSON.stringify(dbState.leads));
   
   // Close form overlay
   toggleAddLeadForm(false);
@@ -3058,3 +3351,33 @@ function handleTestimonialsUpdate(testimonialsData) {
     container.appendChild(card);
   });
 }
+
+/* =========================================================================
+   18. Interactive 3D Card Tilt Effect
+   ========================================================================= */
+function init3DTilt() {
+  const tiltElements = document.querySelectorAll('.service-card-v2, .testi-card, .team-card-v2, .project-row, .hero-bento-card');
+  tiltElements.forEach(el => {
+    el.addEventListener('mousemove', (e) => {
+      const rect = el.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const width = rect.width;
+      const height = rect.height;
+      const xPct = (x / width) - 0.5;
+      const yPct = (y / height) - 0.5;
+      const maxTiltX = 8;
+      const maxTiltY = 8;
+      const tiltY = xPct * maxTiltY;
+      const tiltX = -yPct * maxTiltX;
+      el.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale3d(1.02, 1.02, 1.02)`;
+    });
+    el.addEventListener('mouseleave', () => {
+      el.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+    });
+  });
+}
+
+// Bind to window for external/React initialization
+window.initScrollReveal = initScrollReveal;
+window.init3DTilt = init3DTilt;
