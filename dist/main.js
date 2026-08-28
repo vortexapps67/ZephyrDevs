@@ -107,10 +107,7 @@ if (document.readyState === 'loading') {
    1. Interactive Live Canvas Background & GPU Spotlight Glow
    ========================================================================= */
 function initCanvasBackground() {
-  // Skip the full-screen WebGL shader on mobile — it's the single biggest GPU drain.
-  // Mobile users see the CSS aurora gradients instead, which are GPU-composited and cheap.
-  const isMobile = window.innerWidth < 768 || window.matchMedia('(pointer: coarse)').matches;
-  if (isMobile) return;
+  return; // Permanently disabled to eliminate animated background GPU overhead
 
   const canvas = document.getElementById('background-canvas');
   if (!canvas) return;
