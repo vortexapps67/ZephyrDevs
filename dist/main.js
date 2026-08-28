@@ -501,9 +501,26 @@ void main() {
   // Animation Loop variables
   let animationId = null;
   const startTime = performance.now();
+  let isScrolling = false;
+  let scrollTimeout = null;
+
+  window.addEventListener('scroll', () => {
+    isScrolling = true;
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(() => {
+      isScrolling = false;
+      if (!animationId && !document.hidden) {
+        animationId = requestAnimationFrame(render);
+      }
+    }, 120); // Snappy recovery
+  }, { passive: true });
 
   function render(now) {
     if (document.hidden) return;
+    if (isScrolling) {
+      animationId = null;
+      return;
+    }
 
     const seconds = (now - startTime) * 0.001;
 
@@ -3362,6 +3379,9 @@ function handleTestimonialsUpdate(testimonialsData) {
    18. Interactive 3D Card Tilt Effect
    ========================================================================= */
 function init3DTilt() {
+  const isMobile = window.innerWidth < 768 || window.matchMedia('(pointer: coarse)').matches;
+  if (isMobile) return;
+
   const tiltElements = document.querySelectorAll('.service-card-v2, .testi-card, .team-card-v2, .project-row, .hero-bento-card');
   tiltElements.forEach(el => {
     el.addEventListener('mousemove', (e) => {
@@ -3376,10 +3396,10 @@ function init3DTilt() {
       const maxTiltY = 8;
       const tiltY = xPct * maxTiltY;
       const tiltX = -yPct * maxTiltX;
-      el.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale3d(1.02, 1.02, 1.02)`;
+      el.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale3d(1.02, 1.02, 1.02) translate3d(0,0,0)`;
     });
     el.addEventListener('mouseleave', () => {
-      el.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+      el.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1) translate3d(0,0,0)`;
     });
   });
 }
