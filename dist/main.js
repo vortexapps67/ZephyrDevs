@@ -218,7 +218,7 @@ float noise(vec2 p) {
 float fbm(vec2 p) {
   float v = 0.0;
   float a = 0.5;
-  for (int i = 0; i < 5; i++) {
+  for (int i = 0; i < 3; i++) {
     v += a * noise(p);
     p = p * 2.03 + vec2(17.0, 9.2);
     a *= 0.5;
@@ -487,7 +487,7 @@ void main() {
     const width = window.innerWidth;
     const height = window.innerHeight;
     // Cap DPR at 1.5 to reduce GPU fill rate on high-DPI screens
-    const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+    const dpr = 0.7; // Lowered to 0.7 for butter-smooth rendering on standard laptops
     canvas.width = width * dpr;
     canvas.height = height * dpr;
     canvas.style.width = width + 'px';
@@ -1248,22 +1248,12 @@ function initDevreonBackdrop() {
     return;
   }
 
-  // Mouse interactive grid spotlight position
-  window.addEventListener('mousemove', (e) => {
-    document.documentElement.style.setProperty('--mouse-x', `${(e.clientX / window.innerWidth) * 100}%`);
-    document.documentElement.style.setProperty('--mouse-y', `${(e.clientY / window.innerHeight) * 100}%`);
-  });
-
-  // Custom cursor movement
+  // Custom cursor movement using GPU-accelerated translate3d (avoids reflow/repaint lag)
   if (dot && ring) {
     window.addEventListener('mousemove', (e) => {
-      dot.style.left = `${e.clientX}px`;
-      dot.style.top = `${e.clientY}px`;
-      
-      ring.animate({
-        left: `${e.clientX}px`,
-        top: `${e.clientY}px`
-      }, { duration: 150, fill: "forwards" });
+      const transformValue = `translate3d(${e.clientX}px, ${e.clientY}px, 0) translate(-50%, -50%)`;
+      dot.style.transform = transformValue;
+      ring.style.transform = transformValue;
     });
 
     const hoverables = document.querySelectorAll('a, button, input, textarea, select, .nav-link-item, .faq-question-btn, [onclick], .btn, .social-link');
